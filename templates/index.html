@@ -1,21 +1,50 @@
 {% extends 'base.html' %}
 
 {% block html_body %}
-    <script src="/static/js/music_rank.js"></script>  {% comment %}버튼에 대한 함수를 넣기 위한 자바스크립트{% endcomment %}
     <h1>메인페이지</h1>
 
-    <li class="nav-item">
-    {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-    {% else %}
-        <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
-        <div class="col-8 text-right">
-            <span>또는 <a href="{% url 'user:signup' %}">계정을 만드세요.</a></span>
+    <div style="float: right; width: 300px; background-color: aquamarine">
+        {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+        {% else %}
+            <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
+            <div class="row">
+            <div class="col">
+                <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
+            </div>
+            <div class="col">
+                <a role="button" class="btn btn-outline-dark" href=".">마이페이지</a>
+            </div>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <div class="col-sm-4">
+        <form class="input-group">
+            <input type="text" class="form-control">
+            <button class="btn btn-outline-secondary" type="submit" id="search">검색</button>
+        </form>
+    </div>
+
+
+    <div style="width: 750px; padding-top: 20px">
+        <div id="selector" style="width: 100px; left: 720px; position: absolute">
+                <a href="." role="button" class="btn btn-outline-warning">Top 100</a><br/>
+                <a href="." role="button" class="btn btn-outline-warning">리스트</a>
         </div>
-    {% endif %}
-    </li>
-    <div>
-        <button class="btn btn-primary" id="music_rank_btn">top list</button>
+
+        <div id="content" style="width: 600px">
+            <select class="form-select" style="width: auto; float: right">
+                <option selected>필터</option>
+                <option value="1">좋아요순</option>
+                <option value="2">최신순</option>
+            </select>
+
+            <div id="list" style="background-color: bisque; width: 600px; height: 500px">
+                <h3>내용 넣기</h3>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
