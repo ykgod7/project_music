@@ -10,5 +10,5 @@ def mypage(request, username):
 
 def m_music_rank(request):
 
-    info_music = models.Music.objects.all()
+    info_music = models.Music.objects.all().order_by('-m_like')
     return render(request, 'music_rank.html', {'info_music': info_music})

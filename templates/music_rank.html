@@ -37,9 +37,10 @@
                         </tr>
                         </thead>
                         <tbody id="TbodyPart">
+
                         {% for music in info_music %}
                         <tr>
-                          <td>{{ music.id }}</td>
+                          <td>{{ forloop.counter }}</td>
                           <td>{{ music.m_title }}</td>
                           <td>{{ music.m_like }}</td>
                         </tr>
