@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block html_head %}
+
+    <script src="/static/js/music_list.js"></script>
+
+{% endblock %}
+
 {% block html_body %}
     <h1>Music Rank</h1>
 
@@ -30,8 +36,7 @@
 
     <div style="width: 750px; padding-top: 20px">
         <div id="selector" style="width: 100px; left: 720px; position: absolute">
-                <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a><br/>
-                <a href="." role="button" class="btn btn-outline-warning">리스트</a>
+                <a role="button" class="btn btn-outline-warning" id="music_list_btn">리스트</a>
         </div>
 
         <div id="content" style="width: 600px">
