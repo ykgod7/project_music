@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block html_body %}
+    <script src="/static/js/music_rank.js"></script>  {% comment %}버튼에 대한 함수를 넣기 위한 자바스크립트{% endcomment %}
     <h1>메인페이지</h1>
 
-<li class="nav-item">
+    <li class="nav-item">
     {% if user.is_authenticated %}
         <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
     {% else %}
@@ -13,5 +14,8 @@
         </div>
     {% endif %}
     </li>
+    <div>
+        <button class="btn btn-primary" id="music_rank_btn">top list</button>
+    </div>
 
 {% endblock %}
