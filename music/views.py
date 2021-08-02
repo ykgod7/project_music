@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
+from . import models
 
 
 def mypage(request, username):
@@ -7,3 +8,7 @@ def mypage(request, username):
     return render(request, 'mypage.html', {'user': user})
 
 
+def m_music_rank(request):
+
+    info_music = models.Music.objects.all()
+    return render(request, 'music_rank.html', {'info_music': info_music})
