@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
 ]
 
-
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
