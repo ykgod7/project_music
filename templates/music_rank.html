@@ -1,4 +1,19 @@
 {% extends 'base.html' %}
+{% block html_head %}
+
+    <script src="/static/js/music_list.js"></script>
+    <script>
+        function f_select(obj){
+            if($(obj).val()=='f_like'){
+                document.location.href = '/music/music_rank/f_like'
+            }
+            else if($(obj).val()=='f_title'){
+                document.location.href = '/music/music_rank/f_title'
+            }
+        }
+    </script>
+
+{% endblock %}
 
 {% block html_body %}
     <h1>Music Rank</h1>
@@ -30,16 +45,26 @@
 
 
         <div id="selector" style="width: 100px; left: 720px; position: absolute">
-                <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a><br/>
-                <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
+            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
+            <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
         </div>
 
+    <div style="width: 750px; padding-top: 20px">
+
+        <div id="content" style="width: 600px">
+
             <div id="list" style="overflow:scroll; background-color: bisque; width: 600px; height: 500px;">
-                <select class="form-select" style="width: auto; float: right;">
-                    <option selected>필터</option>
-                    <option value="1">좋아요순</option>
-                    <option value="2">댓글순</option>
-                    <option value="3">제목순</option>
+                <select onchange='f_select(this)' name="f_order" class="form-select" style="width: auto; float: right;">
+                    <optgroup label="순서">
+                        {% if select == 'f_like' %}
+                        <option value="f_like" selected="selected">좋아요순</option>
+                        <option value="f_title">제목순</option>
+                        {% endif %}
+                        {% if select == 'f_title' %}
+                        <option value="f_like">좋아요순</option>
+                        <option value="f_title" selected="selected">제목순</option>
+                        {% endif %}
+                    </optgroup>
                 </select>
                 <div>
                     <table class="table table-striped table-sm">
@@ -63,6 +88,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 
