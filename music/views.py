@@ -3,7 +3,7 @@ from . import models
 from django.contrib.auth.models import User
 from .forms import MyplayListForm
 from .models import MyPlaylist
-
+# 변경
 def m_music_rank(request):
 
     info_music = models.Music.objects.all().order_by('-m_like')
