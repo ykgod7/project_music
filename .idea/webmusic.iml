@@ -18,6 +18,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="LectureSampleProject" />
     <orderEntry type="module" module-name="MyFirstWeb" />
+    <orderEntry type="module" module-name="myFirstWebPoll" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

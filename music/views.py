@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
 from . import models
 
@@ -12,3 +12,8 @@ def m_music_rank(request):
 
     info_music = models.Music.objects.all().order_by('-m_like')
     return render(request, 'music_rank.html', {'info_music': info_music})
+
+
+def index(request):
+    playlists = models.Playlist.objects.all()
+    return render(request, 'index.html', {'playlists': playlists})

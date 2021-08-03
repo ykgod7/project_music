@@ -5,10 +5,9 @@
 
 
     <div class="col-sm-4">
-        <form class="input-group">
-            <input type="text" class="form-control">
-            <button class="btn btn-outline-secondary" type="submit" id="search">검색</button>
-        </form>
+
+            <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+            <button class="btn btn-outline-secondary" type="submit" id="search_btn">검색</button>
     </div>
 
 
@@ -16,9 +15,7 @@
 
         <div id="content" style="width: 600px">
 
-            <div id="selector" style="float: right; padding-right: 17px">
-                <a role="button" class="btn btn-outline-warning" id="music_list_btn">리스트</a>
-            </div>
+
         <div id="selector" style="width: 100px; left: 720px; position: absolute">
                 <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a><br/>
                 <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
@@ -42,13 +39,13 @@
                         </thead>
                         <tbody id="TbodyPart">
 
-                        {% for music in info_music %}{% for music in info_music %}
+                        {% for music in info_music %}
                         <tr>
                           <td>{{ forloop.counter }}</td>
                           <td>{{ music.m_title }}</td>
                           <td>{{ music.m_like }}</td>
                         </tr>
-                        {% endfor %}{% endfor %}
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
