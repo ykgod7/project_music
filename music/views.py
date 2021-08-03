@@ -19,10 +19,6 @@ def music_video(request):
         # myplay_list = [l for l in play_list.]
         context = {
             'user': user,
-            'play_list': models.Playlist.objects.select_related('myplaylist_fk').filter(user_fk=user)
-                ,
+            'play_list': models.Playlist.objects.select_related('myplaylist_fk').filter(user_fk=user),
         }
-
-
-
         return render(request, 'music_detail/video.html', context)
