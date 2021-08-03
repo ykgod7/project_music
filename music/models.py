@@ -9,8 +9,7 @@ class Artist(models.Model):
 class Music(models.Model):
     m_like = models.IntegerField(default=0)
     m_title = models.CharField(max_length=100)
-    # artist_fk = models.ForeignKey(Artist, on_delete=models.CASCADE)
-
+    artist_fk = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
 class MyPlaylist(models.Model):
     mp_title = models.CharField(max_length=100)
