@@ -8,10 +8,16 @@ def mypage(request, username):
     return render(request, 'mypage.html', {'user': user})
 
 
-def m_music_rank(request):
+def m_music_rank_like(request):
 
     info_music = models.Music.objects.all().order_by('-m_like')
-    return render(request, 'music_rank.html', {'info_music': info_music})
+    return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_like'})
+
+
+def m_music_rank_title(request):
+
+    info_music = models.Music.objects.all().order_by('m_title')
+    return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_title'})
 
 
 def index(request):
