@@ -35,19 +35,20 @@
 
 
     <div style="width: 750px; padding-top: 20px">
-        <div id="selector" style="width: 100px; left: 720px; position: absolute">
-                <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a>
-        </div>
-
         <div id="content" style="width: 600px">
-            <select class="form-select" style="width: auto; float: right">
-                <option selected>필터</option>
-                <option value="1">좋아요순</option>
-                <option value="2">최신순</option>
-            </select>
+            <div id="selector" style="float: right; padding-right: 16px">
+                    <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a>
+            </div>
 
-            <div id="list" style="background-color: bisque; width: 600px; height: 500px">
-                <h3>내용 넣기</h3>
+            <div id="content" style="width: 600px">
+                <div id="list" style="overflow: scroll; background-color: bisque; width: 600px; height: 500px">
+                    <select class="form-select" style="width: auto; float: right;">
+                        <option selected>필터</option>
+                        <option value="1">좋아요순</option>
+                        <option value="2">최신순</option>
+                    </select>
+                    <h3>내용 넣기</h3>
+                </div>
             </div>
         </div>
     </div>
