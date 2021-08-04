@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
+{% block html_head %}
+
+    <script src="/static/js/music_list.js"></script>
+    <script>
+        function l_select(obj){
+            if($(obj).val()=='l_like'){
+                document.location.href = '/music/l_like'
+            }
+            else if($(obj).val()=='l_new'){
+                document.location.href = '/music/l_new'
+            }
+        }
+    </script>
+
+{% endblock %}
+
 
 {% block html_body %}
     <h1>메인페이지</h1>
@@ -32,15 +48,22 @@
 
 
         <div id="content">
-            <select class="form-select">
-                <option selected>필터</option>
-                <option value="1">좋아요순</option>
-                <option value="2">최신순</option>
-            </select>
+            <div id="list" style=overflow:scroll class="overflow-auto">
+                <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto;">
+                    <optgroup label="순서">
+                        {% if select == 'l_like' %}
+                        <option value="l_like" selected="selected">좋아요순</option>
+                        <option value="l_new">최신순</option>
+                        {% endif %}
+                        {% if select == 'l_new' %}
+                        <option value="l_like">좋아요순</option>
+                        <option value="l_new" selected="selected">최신순</option>
+                        {% endif %}
+                    </optgroup>
+                </select>
 
-            <div id="list" class="overflow-auto">
                 {% for list in playlists %}
-                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_fk }}</a>/ {{ list.myplaylist_fk.made_by }}
+                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_name }}</a>/ {{ list.made_by }}
                     </div>
                 {% endfor %}
             </div>

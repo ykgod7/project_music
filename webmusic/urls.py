@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from music import views
+from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
+    path('', views.m_list_like, name='index'),
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('music/', include('music.urls'))

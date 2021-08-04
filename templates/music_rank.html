@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block html_head %}
 
     <script src="/static/js/music_list.js"></script>
@@ -40,21 +41,16 @@
 
 
     <div style="width: 750px; padding-top: 20px">
-
         <div id="content" style="width: 600px">
 
-
-        <div id="selector" style="width: 100px; left: 720px; position: absolute">
-            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
-            <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
-        </div>
-
-    <div style="width: 750px; padding-top: 20px">
-
         <div id="content" style="width: 600px">
+            <div id="selector" style="width: 100px; left: 720px; position: absolute">
+                <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
+                <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
+            </div>
 
             <div id="list" style="overflow:scroll; background-color: bisque; width: 600px; height: 500px;">
-                <select onchange='f_select(this)' name="f_order" class="form-select" style="width: auto; float: right;">
+                <select onchange='f_select(this)' name="f_select" class="form-select" style="width: auto; float: right;">
                     <optgroup label="순서">
                         {% if select == 'f_like' %}
                         <option value="f_like" selected="selected">좋아요순</option>
