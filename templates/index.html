@@ -68,7 +68,7 @@
                 </select>
 
                 {% for list in playlists %}
-                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href="music/playlist/{{ list.id }}">{{ list.mp_name }}</a>/{{ list.user_fk.username }} / {{ list.mp_like }} / {{ list.list_pub_date }}
+                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href="/music/playlist/{{ list.id }}">{{ list.mp_name }}</a>/{{ list.user_fk.username }} / {{ list.mp_like }} / {{ list.list_pub_date }}
                     </div>
                 {% endfor %}
             </div>

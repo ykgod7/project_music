@@ -23,7 +23,7 @@ def m_music_rank_title(request):
 
 
 def m_list_like(request):
-    playlists = models.MyPlaylist.objects.all().order_by('mp_like')
+    playlists = models.MyPlaylist.objects.all().order_by('-mp_like')
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_like'})
 
 
@@ -39,7 +39,6 @@ def music_video(request):
     else:
         user = User.objects.get(username=request.user)
         play_list = models.Playlist.objects.select_related('myplaylist_fk')
-        # myplay_list = [l for l in play_list.]
         context = {
             'user': user,
             'play_list': models.Playlist.objects.select_related('myplaylist_fk').filter(user_fk=user),
