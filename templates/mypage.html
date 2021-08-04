@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block html_body %}
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="/">Main</a>
+      </li>
+    </ul>
+
+    <!--   컨텐츠 넣는 구간      -->
+    <div style="width: 750px; padding-top: 20px">
+        <div id="content" style="width: 600px">
+            <div id="playlists" style="background-color: bisque; width: 600px; height: 500px">
+                <h3>내용 넣기</h3>
+                <div class="overflow-auto" style="height: 150px"></div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

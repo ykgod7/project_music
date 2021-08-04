@@ -1,10 +1,5 @@
 {% extends 'base.html' %}
 
-{% block html_head %}
-
-    <script src="/static/js/music_rank.js"></script>
-
-{% endblock %}
 
 {% block html_body %}
     <h1>메인페이지</h1>
@@ -12,43 +7,42 @@
     <div style="float: right; width: 300px; background-color: aquamarine">
         {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+            <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
         {% else %}
             <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
             <div class="row">
-            <div class="col">
-                <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
-            </div>
-            <div class="col">
-                <a role="button" class="btn btn-outline-dark" href=".">마이페이지</a>
-            </div>
+                <div class="col">
+                    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
+                </div>
             </div>
         {% endif %}
     </div>
 
-
     <div class="col-sm-4">
-        <form class="input-group">
-            <input type="text" class="form-control">
-            <button class="btn btn-outline-secondary" type="submit" id="search">검색</button>
-        </form>
+            <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+            <button class="btn btn-outline-secondary" id="search_btn">검색</button>
     </div>
 
 
     <div style="width: 750px; padding-top: 20px">
-        <div id="content" style="width: 600px">
-            <div id="selector" style="float: right; padding-right: 16px">
-                    <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a>
-            </div>
+        <div id="selector">
+            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
+            <a role="button" class="btn btn-outline-warning" href="/">리스트</a><br/>
+        </div>
 
-            <div id="content" style="width: 600px">
-                <div id="list" style="overflow: scroll; background-color: bisque; width: 600px; height: 500px">
-                    <select class="form-select" style="width: auto; float: right;">
-                        <option selected>필터</option>
-                        <option value="1">좋아요순</option>
-                        <option value="2">최신순</option>
-                    </select>
-                    <h3>내용 넣기</h3>
-                </div>
+
+        <div id="content">
+            <select class="form-select">
+                <option selected>필터</option>
+                <option value="1">좋아요순</option>
+                <option value="2">최신순</option>
+            </select>
+
+            <div id="list" class="overflow-auto">
+                {% for list in playlists %}
+                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_fk }}</a>/ {{ list.myplaylist_fk.made_by }}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
