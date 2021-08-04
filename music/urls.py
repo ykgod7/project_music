@@ -4,6 +4,10 @@ from . import views
 app_name = 'music'
 
 urlpatterns = [
-    path('music_rank/', views.m_music_rank, name='music_rank'),
-    path('musicvideo/', views.music_video, name='music_video'),
+    path('music_rank/f_like', views.m_music_rank_like, name='music_rank_like'),
+    path('music_rank/f_title', views.m_music_rank_title, name='music_rank_title'),
+    path('l_like', views.m_list_like, name='list_like'),
+    path('l_new', views.m_list_new, name='list_new'),
+    path('<str:username>', views.mypage, name='mypage'),
+    path('musicviedo/', views.music_video, name='music_video')
 ]
