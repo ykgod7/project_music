@@ -1,50 +1,52 @@
 {% extends 'base.html' %}
 
-
 {% block html_body %}
-    <h1>메인페이지</h1>
+<script src="static/js/search.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link rel="stylesheet" href="static/css/style.css">
 
-    <div style="float: right; width: 300px; background-color: aquamarine">
-        {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-            <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
-        {% else %}
-            <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
-            <div class="row">
-                <div class="col">
-                    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
-                </div>
+
+<h1>just list</h1>
+
+<div class="content login">
+    {% if user.is_authenticated %}
+    <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+    {% else %}
+    <a class="nav-link" href="{% url 'user:login' %}">login</a>
+    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
+    <a role="button" class="btn btn-outline-dark" href=".">my page</a>
+    {% endif %}
+</div>
+
+<div class="col-sm-4">
+    <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+    <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+</div>
+
+
+    <div id="content">
+        <select class="form-select">
+            <option selected>필터</option>
+            <option value="1">좋아요순</option>
+            <option value="2">최신순</option>
+        </select>
+
+        <div id="list" class="overflow-auto" style="background-color: white; width: 500px; height: 700px; float: left;">
+            {% for list in playlists %}
+            <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_fk }}</a>/ {{ list.myplaylist_fk.made_by }}
             </div>
-        {% endif %}
-    </div>
-
-    <div class="col-sm-4">
-            <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
-            <button class="btn btn-outline-secondary" id="search_btn">검색</button>
-    </div>
-
-
-    <div style="width: 750px; padding-top: 20px">
-        <div id="selector">
-            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
-            <a role="button" class="btn btn-outline-warning" href="/">리스트</a><br/>
-        </div>
-
-
-        <div id="content">
-            <select class="form-select">
-                <option selected>필터</option>
-                <option value="1">좋아요순</option>
-                <option value="2">최신순</option>
-            </select>
-
-            <div id="list" class="overflow-auto">
-                {% for list in playlists %}
-                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_fk }}</a>/ {{ list.myplaylist_fk.made_by }}
-                    </div>
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
+
+
+    <div style="padding-top: 20px; float: left; margin-bottom: 10px;">
+    <div class="selector">
+        <div><a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top20</a></div>
+        <div><a role="button" class="btn btn-outline-warning" href="/">list</a></div>
+    </div>
+
+
+</div>
 
 {% endblock %}
