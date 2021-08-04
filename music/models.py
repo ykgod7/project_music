@@ -20,6 +20,7 @@ class Music(models.Model):      # 프레젠테이션 7p
 class MyPlaylist(models.Model):
     p_like = models.IntegerField(default=0)
     made_by = models.CharField(max_length=20, default='신지환')
+    list_pub_date = models.DateTimeField(auto_now=True)
     myplaylist_name = models.CharField(max_length=20)
     music_fk = models.ForeignKey(Music, on_delete=models.CASCADE, null=True)
 
