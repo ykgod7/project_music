@@ -10,7 +10,6 @@ def mypage(request, username):
     return render(request, 'mypage.html', {'user': user})
 
 
-# music_rank.html :select
 def m_music_rank_like(request):
 
     info_music = models.Music.objects.all().order_by('-m_like')
@@ -23,20 +22,15 @@ def m_music_rank_title(request):
     return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_title'})
 
 
-# index.html : select
 def m_list_like(request):
-
-    # info_list = models.MyPlaylist.objects.all().order_by('p_like')
-    # playlists = models.Playlist.objects.all().order_by('mp_like')
     playlists = models.MyPlaylist.objects.all().order_by('-mp_like')
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_like'})
 
 
 def m_list_new(request):
-
-    # info_list = models.MyPlaylist.objects.all().order_by('list_pub_date')
     playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
+
 
 def music_video(request):
     cur_user = request.user
@@ -45,9 +39,13 @@ def music_video(request):
     else:
         user = User.objects.get(username=request.user)
         play_list = models.Playlist.objects.select_related('myplaylist_fk')
-        # myplay_list = [l for l in play_list.]
         context = {
             'user': user,
             'play_list': models.Playlist.objects.select_related('myplaylist_fk').filter(user_fk=user),
         }
         return render(request, 'music_detail/video.html', context)
+
+
+def playlist(request, list_id):
+    playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
+    return render(request, 'playlist.html', {'playlists': playlists})

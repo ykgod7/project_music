@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block html_body %}
+<div style="float: right; width: 300px; background-color: aquamarine">
+        {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+            <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
+        {% else %}
+            <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
+            <div class="row">
+                <div class="col">
+                    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-sm-4">
+            <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+            <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+    </div>
+
+
+    <div style="width: 750px; padding-top: 20px">
+        <div id="selector">
+            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
+            <a role="button" class="btn btn-outline-warning" href="/">리스트</a><br/>
+        </div>
+
+        <div id="content">
+            <div id="list" class="overflow-auto">
+                <div id="list_title">
+                    {{ playlists.mp_name }}
+                </div>
+
+                <div id="music_list">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
