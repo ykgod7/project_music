@@ -2,55 +2,75 @@
 
 {% block html_head %}
 
-    <script src="/static/js/music_rank.js"></script>
+    <script src="/static/js/music_list.js"></script>
+    <script>
+        function l_select(obj){
+            if($(obj).val()=='l_like'){
+                document.location.href = '/music/l_like'
+            }
+            else if($(obj).val()=='l_new'){
+                document.location.href = '/music/l_new'
+            }
+        }
+    </script>
 
 {% endblock %}
 
 {% block html_body %}
-    <h1>메인페이지</h1>
 
-    <div style="float: right; width: 300px; background-color: aquamarine">
-        {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-        {% else %}
-            <a class="nav-link" href="{% url 'user:login' %}">로그인</a>
-            <div class="row">
-            <div class="col">
-                <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">회원가입</a>
-            </div>
-            <div class="col">
-                <a role="button" class="btn btn-outline-dark" href=".">마이페이지</a>
-            </div>
-            </div>
-        {% endif %}
-    </div>
+<script src="static/js/search.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link rel="stylesheet" href="static/css/style.css">
 
 
-    <div class="col-sm-4">
-        <form class="input-group">
-            <input type="text" class="form-control">
-            <button class="btn btn-outline-secondary" type="submit" id="search">검색</button>
-        </form>
-    </div>
+<h1>just list</h1>
+
+<div class="content login" style="color:white">
+    {% if user.is_authenticated %}
+    <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+    <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
+    {% else %}
+    <a class="nav-link" href="{% url 'user:login' %}">login</a>
+    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
+    {% endif %}
+</div>
+
+<div class="col-sm-4">
+    <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+    <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+</div>
 
 
-    <div style="width: 750px; padding-top: 20px">
-        <div id="content" style="width: 600px">
-            <div id="selector" style="float: right; padding-right: 16px">
-                    <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a>
-            </div>
+        <div id="content">
+            <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;" class="overflow-auto">
+                <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto;">
+                    <optgroup label="순서">
+                        {% if select == 'l_like' %}
+                        <option value="l_like" selected="selected">좋아요순</option>
+                        <option value="l_new">최신순</option>
+                        {% endif %}
+                        {% if select == 'l_new' %}
+                        <option value="l_like">좋아요순</option>
+                        <option value="l_new" selected="selected">최신순</option>
+                        {% endif %}
+                    </optgroup>
+                </select>
 
-            <div id="content" style="width: 600px">
-                <div id="list" style="overflow: scroll; background-color: bisque; width: 600px; height: 500px">
-                    <select class="form-select" style="width: auto; float: right;">
-                        <option selected>필터</option>
-                        <option value="1">좋아요순</option>
-                        <option value="2">최신순</option>
-                    </select>
-                    <h3>내용 넣기</h3>
-                </div>
+                {% for list in playlists %}
+                    <div class="playlist"><a style="vertical-align: middle; line-height: 100px" href=".">{{ list.myplaylist_name }}</a>/ {{ list.made_by }}
+                    </div>
+                {% endfor %}
             </div>
         </div>
+
+
+    <div style="padding-top: 20px; float: left; margin-bottom: 10px;">
+    <div class="selector">
+        <div><a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top20</a></div>
+        <div><a role="button" class="btn btn-outline-warning" href="/">list</a></div>
     </div>
+
+
+</div>
 
 {% endblock %}
