@@ -23,3 +23,8 @@ def m_music_rank_title(request):
 def index(request):
     playlists = models.Playlist.objects.all()
     return render(request, 'index.html', {'playlists': playlists})
+
+
+def playlist(request, list_id):
+    playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
+    return render(request, 'playlist.html', {'playlists': playlists})
