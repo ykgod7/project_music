@@ -18,7 +18,7 @@
 
 {% block html_body %}
 
-<script src="static/js/search.js"></script>
+
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 
@@ -48,13 +48,8 @@
 
         <div id="content">
 
-            <div id="selector" style="background-color: white; width: 100px; left: 720px; position: absolute">
-                <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
-                <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
-            </div>
-
-            <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;" class="overflow-auto">
-                <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto;">
+            <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;" class="overflow-auto ">
+                <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto; float:right">
                     <optgroup label="순서">
                         {% if select == 'l_like' %}
                         <option value="l_like" selected="selected">좋아요순</option>
@@ -72,16 +67,14 @@
                     </div>
                 {% endfor %}
             </div>
+
+            <div style="padding-top: 20px; float: left; margin-bottom: 10px;">
+                <div class="selector">
+                    <div><a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top20</a></div>
+                    <div><a role="button" class="btn btn-outline-warning" href="/">list</a></div>
+                </div>
+            </div>
+
         </div>
-
-
-    <div style="padding-top: 20px; float: left; margin-bottom: 10px;">
-    <div class="selector">
-        <div><a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top20</a></div>
-        <div><a role="button" class="btn btn-outline-warning" href="/">list</a></div>
-    </div>
-
-
-</div>
 
 {% endblock %}
