@@ -22,6 +22,7 @@ class Playlist(models.Model):
     myplaylist_fk = models.ForeignKey(MyPlaylist, on_delete=models.CASCADE)
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
 class PlaylistComment(models.Model):
     c_contents = models.TextField()
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
