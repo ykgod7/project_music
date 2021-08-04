@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.contrib.auth import get_user_model
 from . import models
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from .forms import MyplayListForm
 
 
@@ -49,3 +50,5 @@ def music_video(request):
 def playlist(request, list_id):
     playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
     return render(request, 'playlist.html', {'playlists': playlists})
+
+

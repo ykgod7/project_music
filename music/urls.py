@@ -10,5 +10,5 @@ urlpatterns = [
     path('l_new', views.m_list_new, name='list_new'),
     path('<str:username>', views.mypage, name='mypage'),
     path('musicviedo/', views.music_video, name='music_video'),
-    path('playlist/<int:list_id>', views.playlist, name='playlist')
+    path('playlist/<int:list_id>', views.playlist, name='playlist'),
 ]
