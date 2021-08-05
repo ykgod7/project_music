@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm
 from django.contrib.auth import authenticate, login
+from music.models import Profile
 
 
 def signup(request):
@@ -12,7 +13,8 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('main')
+            Profile.objects.create(user=request.user)
+            return redirect('index')
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})

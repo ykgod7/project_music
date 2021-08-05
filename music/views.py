@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth import get_user_model
 from . import models
+from .models import Profile
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from .forms import MyplayListForm
 
 
@@ -48,4 +51,34 @@ def music_video(request):
 
 def playlist(request, list_id):
     playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
-    return render(request, 'playlist.html', {'playlists': playlists})
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    p_liked = profile.like_playlist.filter(id=list_id)
+    if p_liked.exists():
+        p_liked = False
+    else:
+        p_liked = True
+
+    context = {'playlists': playlists, 'p_liked': p_liked}
+    return render(request, 'playlist.html', context)
+
+
+@login_required
+def playlist_like_toggle(request, playlist_id):
+    m_playlist = get_object_or_404(models.MyPlaylist, id=playlist_id)
+    user = request.user
+    profile = Profile.objects.get(user=user)
+
+    check_like_playlist = profile.like_playlist.filter(id=playlist_id)
+
+    if check_like_playlist.exists():
+        profile.like_playlist.remove(m_playlist)
+        m_playlist.mp_like -= 1
+        m_playlist.save()
+    else:
+        profile.like_playlist.add(m_playlist)
+        m_playlist.mp_like += 1
+        m_playlist.save()
+
+    return redirect('music:playlist', playlist_id)
+
