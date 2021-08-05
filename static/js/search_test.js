@@ -1,7 +1,8 @@
 $(function(event) {
     $('[id=search_btn]').on('click',function(event) {
         let keyword = $('#search_keyword').val()
-        let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";
+        let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"
+        // let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";
         $.ajax({
             url:'https://www.googleapis.com/youtube/v3/search',
             type:'get',
