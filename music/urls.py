@@ -11,4 +11,5 @@ urlpatterns = [
     path('<str:username>', views.mypage, name='mypage'),
     path('musicviedo/', views.music_video, name='music_video'),
     path('playlist/<int:list_id>', views.playlist, name='playlist'),
+    path('playlist_like_toggle/<int:playlist_id>/', views.playlist_like_toggle, name="playlist_like_toggle"),
 ]
