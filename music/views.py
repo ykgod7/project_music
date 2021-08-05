@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
+from . import models
+from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect, HttpResponse
-
-from .forms import MyplayListForm
-from . import models
-from .models import MyPlaylist, Playlist, Music, Profile
 import json
+from .forms import MyplayListForm
+from django.contrib import messages
 
 
 def mypage(request, username):
@@ -69,7 +69,6 @@ def music_video(request):
         return render(request, 'music_detail/video.html', context)
 
 
-
 def playlist(request, list_id):
     playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
     user = request.user
@@ -103,3 +102,29 @@ def playlist_like_toggle(request, playlist_id):
 
     return redirect('music:playlist', playlist_id)
 
+
+@login_required
+def create_comment(request, playlist_id):
+    if request.method == 'POST':
+        comment = request.POST.get('content')
+        playlist = get_object_or_404(models.MyPlaylist, pk=playlist_id)
+        user_comment = playlist.playlistcomment_set.filter(user_fk=request.user)
+
+        if user_comment:
+            messages.add_message(request, messages.ERROR, '이미 댓글을 등록하셨습니다.')
+            return redirect('music:playlist', playlist_id)
+
+        if comment:
+            obj = PlaylistComment.objects.create(user_fk=request.user, c_contents=comment, myplaylist_fk=playlist)
+            obj.save()
+
+        return redirect('music:playlist', playlist_id)
+    else:
+        return redirect('music:playlist', playlist_id)
+
+
+def delete_comment(request, playlist_id):
+    playlist = get_object_or_404(models.MyPlaylist, pk=playlist_id)
+    user_comment = playlist.playlistcomment_set.filter(user_fk=request.user)
+    user_comment.delete()
+    return redirect('music:playlist', playlist_id)
