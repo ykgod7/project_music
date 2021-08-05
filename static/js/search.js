@@ -25,3 +25,37 @@ $(function(event) {
     })
 })
 
+///top100리스트
+$(function(event) {
+    $('[id=selector1]').on('click',function(event) {
+    $.ajax({
+        url:'http://localhost:8000/music/music_rank/f_like',
+        type:'get',
+        dataType:'html',
+        success:function(data) {
+            $("#list").empty();
+            $("#list").html(data);
+        },
+        error : function() {
+            alert('실패했어요~')
+        }
+    })
+    })
+})
+
+$(function(event) {
+    $('[id=selector2]').on('click',function(event) {
+    $.ajax({
+        url:'templates/playlist',
+        type:'get',
+        dataType:'html',
+        success:function(data) {
+            $("#list").empty();
+            $("#list").html(data);
+        },
+        error : function() {
+            alert('실패했어요~')
+        }
+    })
+    })
+})

@@ -1,11 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
 
-.selector{
-    background-color: black;
-    color: white;
-    font-size: 11px;
-    border-radius: 0px 5px 5px 0px
+.selector {
+    background-color: grey;
+    color: black;
+    font-size: 12px;
+    border-radius: 0px 2px 2px 0px;
+    padding: 3px;
+    font-style: italic;
+    font-weight: bold;
 }
+
+.selector:hover {
+    background-color: black;
+    color: grey;
+}
+
+
+#content {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+#rank_list {
+font-size: 13px;
+}
+
+
+#content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
 
 .playlist {
     height: 100px;
@@ -47,3 +71,20 @@ h1 {
 }
 
 input:focus {outline:none;}
+
+
+select {
+    width:60px;
+    padding:5px;
+    border:1px solid #999;
+    background:url('static/down.png') no-repeat 95% 50%;
+    border-radius:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+
+.form-select::-ms-expand {
+   display: none;
+}

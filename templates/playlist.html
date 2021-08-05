@@ -1,0 +1,6 @@
+{% for list in playlists %}
+        <div class="playlist" style="color:grey; font-size:15px; vertical-align: middle; line-height: 100px;">
+                <a style="color:black; font-weight: bold; text-decoration: none;" href=".">
+                        {{ list.myplaylist_name }}</a>/ {{ list.made_by }}
+        </div>
+{% endfor %}
