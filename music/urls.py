@@ -9,5 +9,5 @@ urlpatterns = [
     path('l_like', views.m_list_like, name='list_like'),
     path('l_new', views.m_list_new, name='list_new'),
     path('<str:username>', views.mypage, name='mypage'),
-    path('musicviedo/', views.music_video, name='music_video')
+    path('musicvideo/', views.music_video, name='music_video')
 ]
