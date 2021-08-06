@@ -33,8 +33,8 @@ $(function(event) {
                                 //console.log(videoId);
                                 //console.log('순서 확인용 (안)'+varId)
                                 var html = '';
-                                html += '<div class="container" style="text-align:center; height:240px">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:220px; background-color: #BECDFF;">' +
+                                html += '<div class="container" style="text-align:center; height:260px">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
                                     '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
                                     '<a href="music/musicvideo/'+varId+'/">' +
                                     albumArtist + ' : ' + albumTitle +
@@ -42,15 +42,16 @@ $(function(event) {
                                 $("#list").append(html);
                             },
                             error : function(err) {
-                                console.log(err+'\n샘플 videoId=BlackPink:Kill This Love')
+                                console.log(err)
+                                console.log('샘플 videoId=BlackPink:Kill This Love')
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
-                                html += '<div class="container" style="text-align:center; height:240px">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:220px; background-color: #BECDFF;">' +
-                                    '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/2S24-y0Ij3Y/mqdefault.jpg"></iframe><br>' +
-                                    '<a href="music/musicvideo/'+varId+'/">' +
+                                html += '<div class="container" style="text-align:center; height:260px">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
+                                    '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
+                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+'>' +
                                     albumArtist + ' : ' + albumTitle +
-                                    '</a></div></div>'
+                                    '</button></div></div>'
                                 $("#list").append(html);
                             }
                         })
