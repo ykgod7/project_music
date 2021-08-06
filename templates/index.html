@@ -31,9 +31,6 @@
     <a class="nav-link" href="{% url 'user:login' %}">login</a>
     <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
     {% endif %}
-    <div class="col">
-        <a role="button" class="btn btn-outline-dark" href="{% url  'music:music_video' %}">8번페이지</a>
-    </div>
 </div>
 
     <div class="col-sm-4">
@@ -49,8 +46,8 @@
             <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
         </div>
 
-        <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;"
-             class="overflow-auto">
+        <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px;" class="overflow-auto">
+
             <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto;">
                 <optgroup label="순서">
                     {% if select == 'l_like' %}
@@ -65,8 +62,8 @@
             </select>
 
             {% for list in playlists %}
-                <div class="playlist"><a style="vertical-align: middle; line-height: 100px"
-                                         href="/music/playlist/{{ list.id }}">
+                <div class="playlist">
+                    <a style="vertical-align: middle; line-height: 100px" href="/music/playlist/{{ list.id }}">
                     {{ list.mp_name }} / {{ list.user_fk.username }} / {{ list.mp_like }} / {{ list.list_pub_date }}</a>
                 </div>
             {% endfor %}

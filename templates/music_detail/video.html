@@ -41,7 +41,7 @@
                         <form method="post" action="">
                             {% csrf_token %}
                             {% include "form_error.html" %}
-                            <input type="hidden" name="next" value="{% url "music:music_video" %}">
+                            <input type="hidden" name="next" value="{% url "music:music_video" videoId %}">
                             <label for="username">ID</label>
                             <input type="text" class="form-control" name="username" id="username"
                                    value="{{ form.username.value|default_if_none:'아이디' }}">
@@ -134,7 +134,7 @@
                 var id = $('input:checkbox[name="check_list"]:checked').attr('id')
 
                 $.ajax({
-                    url: '{% url 'music:music_video' %}',
+                    url: '{% url 'music:music_video' videoId %}',
                     type: 'post',
                     dataType: 'json',
                     headers: {
@@ -182,11 +182,11 @@
 
         var player;
 
-        function onYouTubeIframeAPIReady() {
+       function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 height: '360',
                 width: '640',
-                videoId: 'UCBkNpeyvBO2TdPGVC_PsPUA',
+                videoId: '{{ videoId }}',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
