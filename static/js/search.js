@@ -10,14 +10,16 @@ $(function(event) {
                 //alert('검색 진입')
                 $("#list").empty();
                 let musicList = response["results"]["trackmatches"]["track"];
-                for (let i = 0; i < 8; i++) {	//반복문을 쓰는 이유는 track 내에 이름을 모두 출력하기 위함. '3' 위치에 나중에 넣을 변수 : musicList.length
+                for (let i = 0; i < 5; i++) {	//반복문을 쓰는 이유는 track 내에 이름을 모두 출력하기 위함. '3' 위치에 나중에 넣을 변수 : musicList.length
                     let albumTitle = musicList[i]["name"]
                     let albumArtist = musicList[i]["artist"]
                     let albumUrl = musicList[i]["url"]
                     //console.log(albumTitle, albumArtist)
                     /////// 썸네일 동영상 ID값을 가져오기 위한 ajax 추가 영역
 
-                    let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";
+                    //let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
+                    let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";   //장경진
+                    //let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"  //황지현
                     let q_keyword = albumTitle + ' ' + albumArtist + ' official'
                     console.log(q_keyword);
                     (function(i){
