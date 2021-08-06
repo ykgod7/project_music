@@ -51,7 +51,7 @@ def m_list_new(request):
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
 
 
-def music_video(request):
+def music_video(request, videoId):
     cur_user = request.user
     if request.method == 'POST':
         if 'next' in request.POST:
@@ -76,9 +76,10 @@ def music_video(request):
             myplay_list = models.MyPlaylist.objects.filter(user_fk=user.pk)
             context = {
                 'play_list': myplay_list,
+                'videoId': videoId
             }
         else:
-            context = {}
+            context = {'videoId': videoId}
         return render(request, 'music_detail/video.html', context)
 
 
