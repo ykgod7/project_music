@@ -27,35 +27,52 @@ $(function(event) {
 
 ///top100리스트
 $(function(event) {
-    $('[id=selector1]').on('click',function(event) {
+    $('[id=top100_btn]').on('click',function(event) {
     $.ajax({
-        url:'http://localhost:8000/music/music_rank/f_like',
+        url:'/music/music_rank/f_like',
         type:'get',
         dataType:'html',
         success:function(data) {
             $("#list").empty();
             $("#list").html(data);
         },
-        error : function() {
-            alert('실패했어요~')
+        error:function(request,status,error){
+        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     })
     })
 })
 
+
+
 $(function(event) {
-    $('[id=selector2]').on('click',function(event) {
+    $('[id=list_btn]').on('click',function(event) {
     $.ajax({
-        url:'templates/playlist',
+        url:'/music/playlist_rank/l_like',
         type:'get',
         dataType:'html',
-        success:function(data) {
+        success:function(data2) {
             $("#list").empty();
-            $("#list").html(data);
+            $("#list").html(data2);
         },
         error : function() {
-            alert('실패했어요~')
+            alert('실패했어요!')
         }
     })
     })
 })
+
+window.onload = function(){
+    $.ajax({
+        url:'/music/playlist_rank/l_like',
+        type:'get',
+        dataType:'html',
+        success:function(data2) {
+            $("#list").empty();
+            $("#list").html(data2);
+        },
+        error : function() {
+            alert('실패했어요!')
+        }
+    })
+};

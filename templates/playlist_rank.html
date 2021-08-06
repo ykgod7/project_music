@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>just list</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/static/js/search.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+
+</head>
+<body>
+
+    <div id="list" class="overflow-auto">
+        <select onchange='l_select(this)' name="l_select" class="form-select"
+                style="width: 100%; float: top; background: url(static/down.png) no-repeat 95% 50%; border: none;">
+            <optgroup label="">
+                {% if select == 'l_like' %}
+                <option value="l_like" selected="selected">like</option>
+                <option value="l_new">new</option>
+                {% endif %}
+                {% if select == 'l_new' %}
+                <option value="l_like">like</option>
+                <option value="l_new" selected="selected">new</option>
+                {% endif %}
+            </optgroup>
+        </select>
+
+        {% for list in playlists %}
+        <div class="playlist"
+             style="display:table; width: 100%; border:none; color:grey; font-size:12px; margin: 0px;
+             height: 40px; text-align:left; padding:15px 35px 15px 35px; font-family: 'Gowun Dodum', sans-serif;">
+            <div style="display:table-cell; vertical-align:middle;">
+                <a style="color:black; font-weight: bold; text-decoration: none; margin-right:5px; font-size:17px;" href=".">
+                        {{ list.myplaylist_name }}</a> {{ list.made_by }}<img src="static/vinyl.png" width="14px" style="margin-left:10px;">
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

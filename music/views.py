@@ -26,16 +26,15 @@ def m_list_like(request):
 
     # info_list = models.MyPlaylist.objects.all().order_by('p_like')
     playlists = models.MyPlaylist.objects.all().order_by('p_like')
-    return render(request, 'index.html', {'playlists': playlists, 'select': 'l_like'})
+    return render(request, 'playlist_rank.html', {'playlists': playlists, 'select': 'l_like'})
 
 
 def m_list_new(request):
 
     # info_list = models.MyPlaylist.objects.all().order_by('list_pub_date')
     playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
-    return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
+    return render(request, 'playlist_rank.html', {'playlists': playlists, 'select': 'l_new'})
 
 
-# def index(request):
-#     playlists = models.Playlist.objects.all()
-#     return render(request, 'index.html', {'playlists': playlists})
+def index(request):
+    return render(request, 'index.html')

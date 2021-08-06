@@ -12,8 +12,11 @@
                 document.location.href = '/music/l_new'
             }
         }
-
     </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
 
 {% endblock %}
 
@@ -26,15 +29,7 @@
 
 <a href="" onClick="top.location='javascript:location.reload()'"><h1>just list</h1></a>
 
-<div class="content login" style="color:white">
-    {% if user.is_authenticated %}
-    <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-    <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
-    {% else %}
-    <a class="nav-link" href="{% url 'user:login' %}">login</a>
-    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
-    {% endif %}
-</div>
+
 
 <div class="col-sm-4">
     <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
@@ -44,7 +39,9 @@
 
 <div id="content" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;" data-da="container">
     <div id="list" class="overflow-auto">
-        <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto; ">
+
+        <select onchange='l_select(this)' name="l_select" class="form-select" style="width: 100%;
+                            background: url(static/down.png) no-repeat 95% 50%; border: none;">
             <optgroup label="">
                 {% if select == 'l_like' %}
                 <option value="l_like" selected="selected">like</option>
@@ -58,9 +55,13 @@
         </select>
 
         {% for list in playlists %}
-        <div class="playlist" style="color:grey; font-size:15px; vertical-align: middle; line-height: 100px;">
-                <a style="color:black; font-weight: bold; text-decoration: none;" href=".">
-                        {{ list.myplaylist_name }}</a> {{ list.made_by }}
+        <div class="playlist"
+             style="display:table; width: 100%; border:none; color:grey; font-size:12px; margin: 0px;
+             height: 40px; text-align:left; padding:15px 35px 15px 35px; font-family: 'Gowun Dodum', sans-serif;">
+            <div style="display:table-cell; vertical-align:middle;">
+                <a style="color:black; font-weight: bold; text-decoration: none; margin-right:5px; font-size:17px;" href=".">
+                    {{ list.myplaylist_name }}</a> {{ list.made_by }}<img src="static/vinyl.png" width="14px" style="margin-left:10px;">
+            </div>
         </div>
         {% endfor %}
 
@@ -70,8 +71,8 @@
 
 
 <div style="padding-top: 20px; float: left;">
-    <div class="selector" id="selector1" style="margin-bottom: 7px;"><a role="button" class="btn btn-outline-warning">Top100</a></div>
-    <div class="selector" id="selector2" style="margin-bottom: 7px;"><a role="button" class="btn btn-outline-warning">list</a></div>
+    <div class="selector" id="top100_btn" style="margin-bottom: 12px;"><a role="button">Top100</a></div>
+    <div class="selector" id="list_btn" style=""><a role="button">list</a></div>
 </div>
 
 

@@ -7,9 +7,10 @@
     <meta charset="UTF-8">
     <title>just list</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="/static/js/search.js"></script>
     <script src="/static/js/music_rank.js"></script>
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="icon" href="static/favicon.ico">
 
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
@@ -56,8 +57,19 @@
 </div>
 
 <div class="content">
-     {% block html_body %}
-     {% endblock %}
+
+    <header id="login" style="color:white">
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (log out)</a>
+        <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">my page</a>
+        {% else %}
+        <a class="nav-link" href="{% url 'user:login' %}">login</a>
+        <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
+        {% endif %}
+    </header>
+
+    {% block html_body %}
+    {% endblock %}
 </div>
 
 

@@ -1,36 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<div id="rank_list" style="overflow:scroll;">
-    <select onchange='f_select(this)' name="f_select" class="form-select" style="width: auto; float: top;">
-        <optgroup label="순서">
+<head>
+    <meta charset="UTF-8">
+    <title>just list</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/music_rank.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+    #rank_list{
+    overflow:scroll;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+
+    }
+
+    table {
+    width : 100%;
+    }
+
+
+    td, th {
+        text-align : left;
+        vertical-align : middle;
+    }
+
+    #rank_list {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    }
+
+    #rank_list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    }
+
+    .rank{
+    font-size: 8;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div>
+    <select onchange='f_select(this)' name="f_select" class="form-select"
+            style="width: 100%; float: top; background: url(static/down.png) no-repeat 95% 50%; border: none;">
+        <optgroup>
             {% if select == 'f_like' %}
-            <option value="f_like" selected="selected">좋아요순</option>
-            <option value="f_title">제목순</option>
+            <option value="f_like" selected="selected">like</option>
+            <option value="f_title">title</option>
             {% endif %}
             {% if select == 'f_title' %}
-            <option value="f_like">좋아요순</option>
-            <option value="f_title" selected="selected">제목순</option>
+            <option value="f_like">like</option>
+            <option value="f_title" selected="selected">title</option>
             {% endif %}
         </optgroup>
     </select>
+</div>
+
+<div id="rank_list" style="padding:15px 35px 15px 35px;">
+
     <div>
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-                <th scope="col">Rank</th>
-                <th scope="col">노래제목</th>
-                <th scope="col">좋아요</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody id="TbodyPart">
 
             {% for music in info_music %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ music.m_title }}</td>
-                <td>{{ music.m_like }}</td>
+                <td class="rank" style="color: #BDBDBD; font-size: 8;">{{ forloop.counter }}</td>
+                <td style="font-size: 17px;">{{ music.m_title }}</td>
+                <td style="color:#BDBDBD; font-size: 8;">♥{{ music.m_like }}</td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+</body>
+</html>

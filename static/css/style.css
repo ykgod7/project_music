@@ -16,18 +16,25 @@
 }
 
 
+#login {
+    position: absolute;
+    top:10px;
+    right: 20px;
+}
+
+
 #content {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
 
-#rank_list {
-font-size: 13px;
+#content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 
 
-#content::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+#rank_list {
+font-size: 13px;
 }
 
 
@@ -51,7 +58,7 @@ font-size: 13px;
        border-left: none;
        border-right: none;
        border-bottom: 1px solid white;
-       margin-bottom: 6px;
+       margin-bottom: 12px;
        right: 0;
        color:white;
        }
