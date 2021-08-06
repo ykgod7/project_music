@@ -33,7 +33,7 @@ class MyPlaylist(models.Model):
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.mp_name
+        return str(self.mp_name)
 
 
 class Playlist(models.Model):
