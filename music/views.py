@@ -11,9 +11,22 @@ from .forms import MyplayListForm
 from django.contrib import messages
 
 
-def mypage(request, username):
+def mypage(request,  username):
     user = get_user_model()
-    return render(request, 'mypage.html', {'user': user})
+    playlist = MyPlaylist.objects.filter(user_fk=request.user)
+    return render(request, 'mypage.html', {'playlist': playlist})
+
+
+def mypage_list(request, username, list_id):
+    playlist = MyPlaylist.objects.filter(user_fk=request.user)
+    selected_list = Playlist.objects.filter(myplaylist_fk=list_id)
+    return render(request, 'mypage.html', {'playlist': playlist, 'selected_list': selected_list})
+
+
+def delete_music(request, username, music_id, list_id):
+    selected_music = get_object_or_404(Playlist, pk=music_id)
+    selected_music.delete()
+    return HttpResponseRedirect(reverse('music:mypage_list', args=(username, list_id)))
 
 
 def m_music_rank_like(request):
@@ -129,3 +142,5 @@ def delete_comment(request, playlist_id):
     user_comment = playlist.playlistcomment_set.filter(user_fk=request.user)
     user_comment.delete()
     return redirect('music:playlist', playlist_id)
+
+

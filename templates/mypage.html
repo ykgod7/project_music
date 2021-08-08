@@ -7,14 +7,51 @@
     </ul>
 
     <!--   컨텐츠 넣는 구간      -->
-    <div style="width: 750px; padding-top: 20px">
         <div id="content" style="width: 600px">
             <div id="playlists" style="background-color: bisque; width: 600px; height: 500px">
-                <h3>내용 넣기</h3>
-                <div class="overflow-auto" style="height: 150px"></div>
+                <h3>내가 만든 플레이리스트</h3>
+                {% for list in playlist %}
+                    <ul>
+                        <li><a href="/music/{{ user }}/{{ list.id }}">{{ list }}</a></li>
+                    </ul>
+                {% endfor %}
+
+                <div id="song" class="overflow-auto" style="height: 320px">
+                    <table class="table">
+                         <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">곡</th>
+                                <th scope="col">재생</th>
+                                <th scope="col">아티스트</th>
+                                <th scope="col">삭제</th>
+                            </tr>
+                          </thead>
+                        {% if selected_list %}
+                        {% for select in selected_list %}
+                            <tbody>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ select.music_fk }}{{ select.id }}</td>
+                                <td><button class="btn btn-outline-success btn-sm">재생</button> </td>
+                                <td>{{ select.music_fk.artist_fk }}</td>
+                                <td><a href="/music/{{ user }}/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">삭제</a> </td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                            <a href="/music/{{ user }}" type="submit" class="btn btn-outline-info" style="float: right" onclick="myFunction()">저장</a>
+                    {% else %}
+                        플레이리스트를 생성 또는 선택해 주세요.
+                    {% endif %}
+                    </table>
+
+                </div>
+
             </div>
-
-
         </div>
-    </div>
+
+    <script>
+    function myFunction() {
+        alert('저장되었습니다!')
+    }
+    </script>
 {% endblock %}
