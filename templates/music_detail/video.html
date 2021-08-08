@@ -41,7 +41,7 @@
                         <form method="post" action="">
                             {% csrf_token %}
                             {% include "form_error.html" %}
-                            <input type="hidden" name="next" value="{% url "music:music_video" videoId %}">
+                            <input type="hidden" name="next" value="{% url "music:music_video" videoId videoTitle videoArtist%}">
                             <label for="username">ID</label>
                             <input type="text" class="form-control" name="username" id="username"
                                    value="{{ form.username.value|default_if_none:'아이디' }}">
@@ -134,7 +134,7 @@
                 var id = $('input:checkbox[name="check_list"]:checked').attr('id')
 
                 $.ajax({
-                    url: '{% url 'music:music_video' videoId %}',
+                    url: '{% url 'music:music_video' videoId videoTitle videoArtist %}',
                     type: 'post',
                     dataType: 'json',
                     headers: {

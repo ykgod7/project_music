@@ -20,6 +20,7 @@ $(function(event) {
                     //let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
                     //let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";   //장경진
                     let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"  //황지현
+                    //let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
                     let q_keyword = albumTitle + ' ' + albumArtist + ' official'
                     console.log(q_keyword);
                     (function(i){
@@ -36,20 +37,22 @@ $(function(event) {
                                 html += '<div class="container" style="text-align:center; height:260px">' +
                                     '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
                                     '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<a href="music/musicvideo/'+varId+'/">' +
+                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+'>' +
                                     albumArtist + ' : ' + albumTitle +
-                                    '</a></div></div>'
+                                    '</button></div></div>'
                                 $("#list").append(html);
                             },
                             error : function(err) {
                                 console.log(err)
                                 console.log('샘플 videoId=BlackPink:Kill This Love')
+                                // albumTitle = 'Kill This Love'
+                                // albumArtist = 'Black Pink'
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
                                 html += '<div class="container" style="text-align:center; height:260px">' +
                                     '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
                                     '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+'>' +
+                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+' data-videoTitle='+albumTitle+' data-videoArtist='+albumArtist+'>' +
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
