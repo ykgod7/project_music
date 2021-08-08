@@ -45,14 +45,17 @@ $(function(event) {
                             error : function(err) {
                                 console.log(err)
                                 console.log('샘플 videoId=BlackPink:Kill This Love')
-                                // albumTitle = 'Kill This Love'
-                                // albumArtist = 'Black Pink'
+                                //albumTitle = 'Kill This Love'
+                                albumTitle = '내 손을 잡아'
+                                //albumArtist = 'Black Pink'
+                                albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* 속성에 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
+                                //alert(albumTitleToEncoding)
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
                                 html += '<div class="container" style="text-align:center; height:260px">' +
                                     '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
                                     '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+' data-videoTitle='+albumTitle+' data-videoArtist='+albumArtist+'>' +
+                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);

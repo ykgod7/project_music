@@ -13,7 +13,7 @@
     <div id="player"></div>
     <div>
         <div>
-            <label>곡제목: </label>
+            <label>곡제목: {{ videoArtist }}</label>
             <input type="button" value="like">
             {% if request.user.is_authenticated %}
                 <a id="modal_trigger" href="#show_playlist"><input type="button" value="playlist"></a>
@@ -22,9 +22,9 @@
                 <a id="modal_trigger" href='#popup_login'><input type="button" value="playlist"></a>
             {% endif %}
             <div class="row">
-                <label>아티스트: </label>
-                <label>발매일: </label>
-                <label>소속사: </label>
+                <label>아티스트: {{ videoArtist }}</label>
+                {% comment %}<label>발매일: </label>
+                <label>제목: {{ videoTitle }}</label>{% endcomment %}
             </div>
 
             <div id="popup_login" class="popupContainer" style="display:none;">

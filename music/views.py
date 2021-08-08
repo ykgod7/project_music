@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 import json
 from .forms import MyplayListForm
 from django.contrib import messages
-
+from urllib import parse
 
 def mypage(request,  username):
     user = get_user_model()
@@ -53,6 +53,8 @@ def m_list_new(request):
 
 def music_video(request, videoId, videoTitle, videoArtist):
     cur_user = request.user
+    v_Title = parse.unquote(videoTitle)
+    v_Artist = parse.unquote(videoArtist)
     if request.method == 'POST':
         if 'next' in request.POST:
             form = AuthenticationForm(data=request.POST)
@@ -77,13 +79,13 @@ def music_video(request, videoId, videoTitle, videoArtist):
             context = {
                 'play_list': myplay_list,
                 'videoId': videoId,
-                'videoTitle': videoTitle,
-                'videoArtist': videoArtist
+                'videoTitle': v_Title,
+                'videoArtist': v_Artist
             }
         else:
             context = {'videoId': videoId,
-                       'videoTitle': videoTitle,
-                       'videoArtist': videoArtist}
+                       'videoTitle': v_Title,
+                       'videoArtist': v_Artist}
         return render(request, 'music_detail/video.html', context)
 
 
