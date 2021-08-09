@@ -10,7 +10,17 @@ $(function(event) {
                 //alert('검색 진입')
                 $("#list").empty();
                 let musicList = response["results"]["trackmatches"]["track"];
+                if(musicList.length==0){console.log(musicList)}
                 for (let i = 0; i < 2; i++) {	//반복문을 쓰는 이유는 track 내에 이름을 모두 출력하기 위함. '3' 위치에 나중에 넣을 변수 : musicList.length
+                    if(musicList.length==0){
+                        var html = ''
+                        html += '<div class="container" style="text-align:center; height:260px">' +
+                            '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
+                            '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/wnudr9qjrbA/mqdefault.jpg"></iframe><br>' +
+                            '<h6>검색 결과가 없어요. 검색어를 다시 확인해주세요!</h6></div></div>'
+                        $("#list").append(html);
+                        break;
+                    }
                     let albumTitle = musicList[i]["name"]
                     let albumArtist = musicList[i]["artist"]
                     let albumUrl = musicList[i]["url"]
