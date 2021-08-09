@@ -74,7 +74,7 @@
 </div>
 </div>
     <div class="container my-3">
-    <form method="post" class="post-form" action="{% url 'user:login' %}">
+    <form method="post" class="post-form" action="">
         {% csrf_token %}
         {% include "form_error.html" %}
         <div class="form-group">
@@ -94,3 +94,13 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

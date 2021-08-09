@@ -1,0 +1,36 @@
+<div id="show_playlist" class="popupContainer" style="display:none;">
+    <header class="popupHeader">
+        <span class="header_title">재생목록</span>
+        <span class="modal_close"><i class="bi bi-x-lg"></i></span>
+        <span class="modal_add" id="modal_addd"><i class="bi bi-plus-lg"> 추가</i></span>
+        {% comment %}<span class="modal_del"><i class="bi bi-dash-lg"> 삭제</i></span>{% endcomment %}
+    </header>
+
+    <section class="popupBody">
+        <div id="playlist">
+            {% for pl in play_list %}
+                <p>
+                    <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
+                           value='{{ pl.pk }}' style="zoom:2.0"/>
+                    <label for='check_list{{ forloop.counter }}'
+                           style="top: -3px; position: relative; font-size: 20pt">{{ pl.mp_name }}</label>
+                </p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <footer class="popupFooter">
+        <span class="footer_title" style="cursor: pointer">재생목록 추가</span>
+        <div class="hidden_playlist" style="display: none">
+            <form>
+                <label>제목</label>
+                <input id="new_playlist" type="text"/>
+                <br/>
+
+                <div class="action_btns">
+                    <div class="one_middle btn btn_red" id="add_list">추가</div>
+                </div>
+            </form>
+        </div>
+    </footer>
+</div>

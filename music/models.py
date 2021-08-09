@@ -42,7 +42,7 @@ class Playlist(models.Model):
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return str(self.myplaylist_fk)
+        return str(self.myplaylist_fk.mp_name)
 
 
 class PlaylistComment(models.Model):

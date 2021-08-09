@@ -1,25 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block html_head %}
     <link rel="stylesheet" href="{% static 'css/music_detail.css' %}" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="{% static 'js/jquery.leanModal.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/video_leanmodal.js' %}"></script>
 
 {% endblock %}
+
 {% block html_body %}
     {% csrf_token %}
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <header>상단</header>
+    <header>
+        {% if user.is_authenticated %}
+            <h3>로그인됨</h3>
+        {% else %}
+            <h3>로그인안됨</h3>
+        {% endif %}
+    </header>
 
     <div id="player"></div>
     <div>
         <div>
             <label>곡제목: </label>
-            <input type="button" value="like">
+            <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>
+
+
             {% if request.user.is_authenticated %}
-                <a id="modal_trigger" href="#show_playlist"><input type="button" value="playlist"></a>
+                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#show_playlist'><i class="fa fa-list">Playlist</i></a></button>
             {% else %}
                 {% comment %}로그인 하도록 유도{% endcomment %}
-                <a id="modal_trigger" href='#popup_login'><input type="button" value="playlist"></a>
+                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#popup_login'><i class="fa fa-list">Playlist</i></a></button>
+
             {% endif %}
             <div class="row">
                 <label>아티스트: </label>
@@ -27,151 +40,14 @@
                 <label>소속사: </label>
             </div>
 
-            <div id="popup_login" class="popupContainer" style="display:none;">
-                <header class="popupHeader">
-                    <span class="header_title">Login</span>
-                    <span class="modal_close"><i class="bi bi-x-lg"></i></span>
-                </header>
+            {% include 'music_detail/popup_login.html' %}
+            {% include 'music_detail/popup_playlist.html' %}
 
-                <section class="popupBody">
-                    <!-- Social Login -->
-
-                    <!-- Username & Password Login form -->
-                    <div class="user_login">
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            {% include "form_error.html" %}
-                            <input type="hidden" name="next" value="{% url "music:music_video" %}">
-                            <label for="username">ID</label>
-                            <input type="text" class="form-control" name="username" id="username"
-                                   value="{{ form.username.value|default_if_none:'아이디' }}">
-                            <br/>
-
-                            <label for="password">PASSWORD</label>
-                            <input type="password" class="form-control" name="password" id="password"
-                                   value="{{ form.password.value|default_if_none:'비밀번호' }}">
-                            <br/>
-
-                            <div class="action_btns">
-                                <button type="submit" class="btn btn_red" style="width: 100%">Login</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Register Form -->
-                </section>
-
-            </div>
-            <div id="show_playlist" class="popupContainer" style="display:none;">
-                <header class="popupHeader">
-                    <span class="header_title">재생목록</span>
-                    <span class="modal_close"><i class="bi bi-x-lg"></i></span>
-                    <span class="modal_add" id="modal_add"><i class="bi bi-plus-lg"> 추가</i></span>
-                    {% comment %}<span class="modal_del"><i class="bi bi-dash-lg"> 삭제</i></span>{% endcomment %}
-                </header>
-
-                <section class="popupBody">
-                    <div id="playlist">
-                        {% for pl in play_list %}
-                            <p>
-                                <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
-                                       value='{{ pl.pk }}' style="zoom:2.0"/>
-                                <label for='check_list{{ forloop.counter }}'
-                                       style="top: -3px; position: relative; font-size: 20pt">{{ pl.mp_name }}</label>
-                            </p>
-                        {% endfor %}
-                    </div>
-                </section>
-
-                <footer class="popupFooter">
-                    <span class="footer_title" style="cursor: pointer">재생목록 추가</span>
-                    <div class="hidden_playlist" style="display: none">
-                        <form>
-                            <label>제목</label>
-                            <input id="new_playlist" type="text"/>
-                            <br/>
-
-                            <div class="action_btns">
-                                <div class="one_middle btn btn_red" id="add_list">추가</div>
-                            </div>
-                        </form>
-                    </div>
-                </footer>
-            </div>
         </div>
     </div>
 
     <footer>하단</footer>
-    <script>
-        $("#modal_trigger").leanModal({
-            top: 100,
-            overlay: 0.5,
-            closeButton: ".modal_close",
-            addButton: ".modal_add",
-        });
 
-        function addlist() {
-            $("#add_list").click(function () {
-                var value = $('#new_playlist').val()
-                console.log(value)
-                var cnt = $('#playlist').children().length
-                var cname = 'check_list' + String(cnt + 1)
-                console.log(cname)
-                var ptag = "<p>"
-                ptag += `<input type="checkbox" id=${cname} name="check_list" value="new" sytle="zoom:2.0"/>`
-                ptag += `<label for=${cname} style="top: -3px; position: relative; font-size: 20pt">${value}</label>`
-                ptag += "</p>"
-                $('#playlist').append(ptag)
-                $('#new_playlist').val('')
-                $(".hidden_playlist").hide();
-                return false;
-            });
-        };
-
-        function savelist() {
-            $(document).on('click', '#modal_add', function () {
-                var csrf_token = $('[name=csrfmiddlewaretoken]').val();
-                var id = $('input:checkbox[name="check_list"]:checked').attr('id')
-
-                $.ajax({
-                    url: '{% url 'music:music_video' %}',
-                    type: 'post',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRFToken': csrf_token
-                    },
-                    data: {
-                        mp_name: $(`label[for=${id}]`).text(),
-                        mp_key: $('input:checkbox[name="check_list"]:checked').val()
-                    },
-                    success: function (response) {
-                        console.log(response.data)
-                    },
-                    error: function () {
-                        console.log(response.data)
-                    }
-                })
-            })
-        };
-
-        $(function (event) {
-            // Calling Login Form
-            $(".footer_title").click(function () {
-                $(".hidden_playlist").show();
-                return false;
-            });
-            $(function (event) {
-                $(document).on('click', 'input[type="checkbox"][name="check_list"]', function (event) {
-                    if ($(this).prop('checked')) {
-                        $('input[type="checkbox"][name="check_list"]').prop('checked', false);
-                        $(this).prop('checked', true);
-                    }
-                })
-            });
-            addlist()
-            savelist()
-        });
-    </script>
 
     <script>
         var tag = document.createElement('script');
@@ -186,7 +62,7 @@
             player = new YT.Player('player', {
                 height: '360',
                 width: '640',
-                videoId: 'UCBkNpeyvBO2TdPGVC_PsPUA',
+                videoId: '{{videoid}}',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange

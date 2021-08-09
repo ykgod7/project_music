@@ -1,14 +1,17 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
-from . import models
-from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
+
+from . import models
+from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist
+from user.forms import PopupLoginForm
 import json
 from .forms import MyplayListForm
-from django.contrib import messages
+
 
 
 def mypage(request, username):
@@ -38,15 +41,9 @@ def m_list_new(request):
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
 
 
-def music_video(request):
+def music_video(request, videoid):
     cur_user = request.user
     if request.method == 'POST':
-        if 'next' in request.POST:
-            form = AuthenticationForm(data=request.POST)
-            if form.is_valid():
-                user = form.get_user()
-                login(request, user)
-                return redirect(request.POST.get('next'))
         user = User.objects.get(username=request.user)
         music_key = Music.objects.get(m_title='좋은날')
         myplaylist_pk = request.POST.get('mp_key')
@@ -63,23 +60,36 @@ def music_video(request):
             myplay_list = models.MyPlaylist.objects.filter(user_fk=user.pk)
             context = {
                 'play_list': myplay_list,
+                'videoid': videoid,
             }
         else:
-            context = {}
+            form = PopupLoginForm()
+            context = {'videoid': videoid, 'form': form}
         return render(request, 'music_detail/video.html', context)
 
 
 def playlist(request, list_id):
     playlists = get_object_or_404(models.MyPlaylist, pk=list_id)
-    user = request.user
-    profile = Profile.objects.get(user=user)
-    p_liked = profile.like_playlist.filter(id=list_id)
-    if p_liked.exists():
-        p_liked = False
-    else:
-        p_liked = True
+    if request.method == 'POST':
+        if 'next' in request.POST:
+            form = AuthenticationForm(data=request.POST)
+            if form.is_valid():
+                user = form.get_user()
+                login(request, user)
+                return redirect(request.POST.get('next'))
+    if request.user.is_authenticated:
+        user = request.user
+        profile = Profile.objects.get(user=user)
+        p_liked = profile.like_playlist.filter(id=list_id)
 
-    context = {'playlists': playlists, 'p_liked': p_liked}
+        if p_liked.exists():
+            p_liked = False
+        else:
+            p_liked = True
+
+        context = {'playlists': playlists, 'p_liked': p_liked}
+    else:
+        context = {'playlists': playlists, 'p_liked': True, 'form': PopupLoginForm()}
     return render(request, 'playlist.html', context)
 
 
