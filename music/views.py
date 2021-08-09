@@ -17,8 +17,9 @@ from urllib import parse
 
 def mypage(request):
     user = get_user_model()
+    liked_playlist = Profile.objects.filter(user=request.user)
     playlist = MyPlaylist.objects.filter(user_fk=request.user)
-    return render(request, 'mypage.html', {'playlist': playlist})
+    return render(request, 'mypage.html', {'playlist': playlist, 'liked_playlist': liked_playlist})
 
 
 def mypage_list(request, list_id):
