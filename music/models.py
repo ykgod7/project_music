@@ -20,7 +20,7 @@ class Artist(models.Model):
 class Music(models.Model):
     m_like = models.IntegerField(default=0)
     m_title = models.CharField(max_length=100)
-    m_videoCd = models.CharField(max_length=100)
+    m_videoCd = models.CharField(max_length=100, null=True)
     artist_fk = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
     def __str__(self):

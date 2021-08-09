@@ -13,7 +13,7 @@
     <div id="player"></div>
     <div>
         <div>
-            <label>곡제목: {{ videoArtist }}</label>
+            <label>곡제목: {{ videoTitle }}</label>
             <input type="button" value="like">
             {% if request.user.is_authenticated %}
                 <a id="modal_trigger" href="#show_playlist"><input type="button" value="playlist"></a>
