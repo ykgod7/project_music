@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from user.forms import PopupLoginForm
 from .forms import MyplayListForm
 import json
 from . import models
-from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist
+from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist, Artist
 from urllib import parse
 
 
@@ -29,16 +30,15 @@ def mypage_list(request, list_id):
 def delete_music(request, music_id, list_id):
     selected_music = get_object_or_404(Playlist, pk=music_id)
     selected_music.delete()
-    return HttpResponseRedirect(reverse('music:mypage_list', args=(list_id, )))
+    return HttpResponseRedirect(reverse('music:mypage_list', args=(list_id,)))
+
 
 def m_music_rank_like(request):
-
     info_music = models.Music.objects.all().order_by('-m_like')
     return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_like'})
 
 
 def m_music_rank_title(request):
-
     info_music = models.Music.objects.all().order_by('m_title')
     return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_title'})
 
@@ -65,14 +65,25 @@ def music_video(request, videoId, videoTitle, videoArtist):
                 login(request, user)
                 return redirect(request.POST.get('next'))
         user = User.objects.get(username=request.user)
-        music_key = Music.objects.get(m_title='좋은날')
         myplaylist_pk = request.POST.get('mp_key')
+        # 가수 -> 곡,영상코드
+
+        try:
+            artist_key = Artist.objects.get(a_name=v_Artist)
+        except ObjectDoesNotExist:
+            artist_key = Artist.objects.create(a_name=v_Artist)
+        try:
+            music_key = Music.objects.get(m_title=v_Title)
+        except:
+            music_key = Music.objects.create(m_title=v_Title, m_videoCd=videoId, artist_fk=artist_key)
+
         if (myplaylist_pk == 'new'):
             myplaylist = MyPlaylist.objects.create(mp_name=request.POST.get('mp_name'), user_fk=user)
             playlist = Playlist.objects.create(music_fk=music_key, myplaylist_fk=myplaylist, user_fk=user)
             return HttpResponse(json.dumps({'data': 'success'}))
         else:
-            playlist = Playlist.objects.create(music_fk=music_key, myplaylist_fk=MyPlaylist.objects.get(pk=myplaylist_pk), user_fk=user)
+            playlist = Playlist.objects.create(music_fk=music_key,
+                                               myplaylist_fk=MyPlaylist.objects.get(pk=myplaylist_pk), user_fk=user)
         return HttpResponse(json.dumps({'data': 'success'}))
     else:
         if request.user.is_authenticated:
@@ -87,7 +98,9 @@ def music_video(request, videoId, videoTitle, videoArtist):
         else:
             context = {'videoId': videoId,
                        'videoTitle': v_Title,
-                       'videoArtist': v_Artist}
+                       'videoArtist': v_Artist,
+                       'form': PopupLoginForm()
+                       }
         return render(request, 'music_detail/video.html', context)
 
 

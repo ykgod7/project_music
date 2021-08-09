@@ -23,7 +23,7 @@
     <div id="player"></div>
     <div>
         <div>
-            <label>곡제목: </label>
+            <label>곡제목: {{ videoTitle }}</label>
             <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>
 
 
@@ -60,7 +60,7 @@
             player = new YT.Player('player', {
                 height: '360',
                 width: '640',
-                videoId: '{{videoid}}',
+                videoId: '{{videoId}}',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
