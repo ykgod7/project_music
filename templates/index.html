@@ -26,7 +26,7 @@
 <div class="content login" style="color:white">
     {% if user.is_authenticated %}
     <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-    <a role="button" class="btn btn-outline-dark" href="music/{{ user.username }}">마이페이지</a>
+    <a role="button" class="btn btn-outline-dark" href="music/mypage">마이페이지</a>
     {% else %}
     <a class="nav-link" href="{% url 'user:login' %}">login</a>
     <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
@@ -63,7 +63,7 @@
 
             {% for list in playlists %}
                 <div class="playlist">
-                    <a style="vertical-align: middle; line-height: 100px" href="/music/playlist/{{ list.id }}">
+                    <a style="vertical-align: middle; line-height: 100px" href="{% url 'music:playlist' list.id %}">
                     {{ list.mp_name }} / {{ list.user_fk.username }} / {{ list.mp_like }} / {{ list.list_pub_date }}</a>
                 </div>
             {% endfor %}
