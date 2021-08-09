@@ -31,8 +31,9 @@
                         {% for select in selected_list %}
                             <tbody>
                                 <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ select.music_fk }}{{ select.id }}</td>
-                                <td><button class="btn btn-outline-success btn-sm">재생</button> </td>
+                                <td>{{ select.music_fk }}</td>
+                                <td><button class="btn btn-outline-success btn-sm"
+                                            onclick="location.href='/music/musicvideo/{{ select.music_fk.m_videoCd }}/{{ select.music_fk.m_title }}/{{ select.music_fk.artist_fk }}/'">재생</button> </td>
                                 <td>{{ select.music_fk.artist_fk }}</td>
                                 <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">삭제</a> </td>
                                 </tr>
