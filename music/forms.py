@@ -10,12 +10,6 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="비밀번호", widget=forms.PasswordInput,
                                error_messages={'required': "비밀번호를 입력하세요"})
 
-
-# class loginForm2(forms.ModelForm):
-#     class Meta:
-
-
-
 class MyplayListForm(forms.ModelForm):
     class Meta:
         model = MyPlaylist
