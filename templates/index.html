@@ -4,11 +4,10 @@
 
     <script src="/static/js/music_list.js"></script>
     <script>
-        function l_select(obj){
-            if($(obj).val()=='l_like'){
+        function l_select(obj) {
+            if ($(obj).val() == 'l_like') {
                 document.location.href = '/music/l_like/'
-            }
-            else if($(obj).val()=='l_new'){
+            } else if ($(obj).val() == 'l_new') {
                 document.location.href = '/music/l_new/'
             }
         }
@@ -18,25 +17,27 @@
 
 {% block html_body %}
 
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 
-<h1>just list</h1>
+    <h1>just list</h1>
 
-<div class="content login" style="color:white">
-    {% if user.is_authenticated %}
-    <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
-    <a role="button" class="btn btn-outline-dark" href="music/mypage">마이페이지</a>
-    {% else %}
-    <a class="nav-link" href="{% url 'user:login' %}">login</a>
-    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
-    {% endif %}
-</div>
-
-    <div class="col-sm-4">
-        <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
-        <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+    <div class="content login" style="color:white">
+        {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'user:logout' %}">{{ user.username }} (로그아웃)</a>
+            <a role="button" class="btn btn-outline-dark" href="/music/mypage/">마이페이지</a>
+        {% else %}
+            <a class="nav-link" href="{% url 'user:login' %}">login</a>
+            <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}">join</a>
+        {% endif %}
     </div>
+
+    <form onsubmit="return false">
+        <div class="col-sm-4">
+            <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
+            <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+        </div>
+    </form>
 
 
     <div id="content">
@@ -46,7 +47,8 @@
             <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
         </div>
 
-        <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px;" class="overflow-auto">
+        <div id="list" style="overflow:scroll; background-color: white; width: 500px; height: 700px;"
+             class="overflow-auto">
 
             <select onchange='l_select(this)' name="l_select" class="form-select" style="width: auto;">
                 <optgroup label="순서">
@@ -64,7 +66,8 @@
             {% for list in playlists %}
                 <div class="playlist">
                     <a style="vertical-align: middle; line-height: 100px" href="{% url 'music:playlist' list.id %}">
-                    {{ list.mp_name }} / {{ list.user_fk.username }} / {{ list.mp_like }} / {{ list.list_pub_date }}</a>
+                        {{ list.mp_name }} / {{ list.user_fk.username }} / {{ list.mp_like }}
+                        / {{ list.list_pub_date }}</a>
                 </div>
             {% endfor %}
         </div>

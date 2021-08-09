@@ -4,11 +4,10 @@
 
     <script src="/static/js/music_list.js"></script>
     <script>
-        function f_select(obj){
-            if($(obj).val()=='f_like'){
+        function f_select(obj) {
+            if ($(obj).val() == 'f_like') {
                 document.location.href = '/music/music_rank/f_like/'
-            }
-            else if($(obj).val()=='f_title'){
+            } else if ($(obj).val() == 'f_title') {
                 document.location.href = '/music/music_rank/f_title/'
             }
         }
@@ -33,32 +32,34 @@
         {% endif %}
     </div>
 
-    <div class="col-sm-4">
-
+    <form onsubmit="return false">
+        <div class="col-sm-4">
             <input id='search_keyword' type='text' name='search' maxlength='100' value='' autocomplete='off'>
-            <button class="btn btn-outline-secondary" type="submit" id="search_btn">검색</button>
-    </div>
+            <button class="btn btn-outline-secondary" id="search_btn">검색</button>
+        </div>
+    </form>
 
 
     <div style="width: 750px; padding-top: 20px">
-        <div id="content" style="width: 600px">
+    <div id="content" style="width: 600px">
 
         <div id="content" style="width: 600px">
             <div id="selector" style="width: 100px; left: 720px; position: absolute">
-                <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
+                <a role="button" class="btn btn-outline-warning" id="music_rank_btn">Top 100</a><br/>
                 <a href="/" role="button" class="btn btn-outline-warning">리스트</a>
             </div>
 
             <div id="list" style="overflow:scroll; background-color: bisque; width: 600px; height: 500px;">
-                <select onchange='f_select(this)' name="f_select" class="form-select" style="width: auto; float: right;">
+                <select onchange='f_select(this)' name="f_select" class="form-select"
+                        style="width: auto; float: right;">
                     <optgroup label="순서">
                         {% if select == 'f_like' %}
-                        <option value="f_like" selected="selected">좋아요순</option>
-                        <option value="f_title">제목순</option>
+                            <option value="f_like" selected="selected">좋아요순</option>
+                            <option value="f_title">제목순</option>
                         {% endif %}
                         {% if select == 'f_title' %}
-                        <option value="f_like">좋아요순</option>
-                        <option value="f_title" selected="selected">제목순</option>
+                            <option value="f_like">좋아요순</option>
+                            <option value="f_title" selected="selected">제목순</option>
                         {% endif %}
                     </optgroup>
                 </select>
@@ -66,19 +67,19 @@
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                          <th scope="col">Rank</th>
-                          <th scope="col">노래제목</th>
-                          <th scope="col">좋아요</th>
+                            <th scope="col">Rank</th>
+                            <th scope="col">노래제목</th>
+                            <th scope="col">좋아요</th>
                         </tr>
                         </thead>
                         <tbody id="TbodyPart">
 
                         {% for music in info_music %}
-                        <tr>
-                          <td>{{ forloop.counter }}</td>
-                          <td>{{ music.m_title }}</td>
-                          <td>{{ music.m_like }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ music.m_title }}</td>
+                                <td>{{ music.m_like }}</td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>

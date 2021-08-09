@@ -14,29 +14,27 @@
     <div style="float: right; width: 300px; background-color: aquamarine">
         {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'user:logout' %}?next={{ request.path }}">{{ user.username }} (로그아웃)</a>
-            <a role="button" class="btn btn-outline-dark" href="/music/mypage">마이페이지</a>
+            <a role="button" class="btn btn-outline-dark" href="/music/mypage/">마이페이지</a>
         {% else %}
             <a class="nav-link" href="{% url 'user:login' %}?next={{ request.path }}">로그인</a>
             <div class="row">
                 <div class="col">
-                    <a role="button" class="btn btn-outline-info" href="{% url 'user:signup' %}?next={{ request.path }}">회원가입</a>
+                    <a role="button" class="btn btn-outline-info"
+                       href="{% url 'user:signup' %}?next={{ request.path }}">회원가입</a>
                 </div>
             </div>
         {% endif %}
     </div>
 
-    <div style="width: 750px; padding-top: 20px">
-        <div id="selector">
-            <a role="button" class="btn btn-outline-warning"  id="music_rank_btn">Top 100</a><br/>
-            <a role="button" class="btn btn-outline-warning" href="/">리스트</a><br/>
-        </div>
 
+
+    <div style="width: 750px; padding-top: 20px">
 
         <div id="content">
-        <!------- 제목 담당 --------->
-                <div id="list_title" style="background-color: pink">
-                    {{ playlists.mp_name }}
-                    {{ playlists.mp_like }}
+            <!------- 제목 담당 --------->
+            <div id="list_title" style="background-color: pink">
+                {{ playlists.mp_name }}
+                {{ playlists.mp_like }}
 
 
                 {% if user.is_authenticated %}
@@ -49,67 +47,70 @@
                     {% endif %}
                 {% else %}
                     {% comment %}로그인 유도{% endcomment %}
-                    <a id="like_btn" role="button" class="btn btn-outline-primary" >좋아요</a>
+                    <a id="like_btn" role="button" class="btn btn-outline-primary">좋아요</a>
                 {% endif %}
-                </div>
+            </div>
 
 
             <!--------   노래 담당  ---------->
-                <div id="music_list" class="overflow-auto" style="height: 150px; background-color: aquamarine">
-                    {% for song in playlists.playlist_set.all %}
-                        {{ forloop.counter }}.
-                            {{ song.music_fk.m_title }}
-                        <input type="button" value="재생"><br/>
-                    {% endfor %}
-                </div>
+            <div id="music_list" class="overflow-auto" style="height: 150px; background-color: aquamarine">
+                {% for song in playlists.playlist_set.all %}
+                    {{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
+                    <input type="button" value="재생"
+                           onclick="location.href='/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/'">
+                    <br/>
+                {% endfor %}
+            </div>
 
 
             <!------    댓글 담당    ------>
-                <div id="comment" style="background-color: mediumturquoise">
+            <div id="comment" style="background-color: mediumturquoise">
                 {% if messages %}
                     <span class="messages" style="color: red;">
                         {% for message in messages %}
-                        {{ message }}
+                            {{ message }}
                         {% endfor %}
                     </span>
                 {% endif %}
 
-                    <form action="{% url 'music:create_comment' playlists.id %}" method="post">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            {% if user.is_authenticated %}
+                <form action="{% url 'music:create_comment' playlists.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        {% if user.is_authenticated %}
                             <input type="text" class="form-control" placeholder="댓글을 입력하세요."
                                    aria-describedby="create_comment" name="content">
                             <input type="submit" class="btn btn-outline-dark" value="등록" id="create_comment">
                         {% else %}
                             <a class="form-control" id="modal_trigger" href="#popup_login"
-                               style="display:block;height:46px;padding:4px 8px;border:1px solid #DDD;box-shadow:inset 1px 1px 4px rgba(0,0,0,.06);background:#FFF;text-decoration:none !important;color:#999 !important">로그인후 열람 가능합니다.</a>
+                               style="display:block;height:46px;padding:4px 8px;border:1px solid #DDD;box-shadow:inset 1px 1px 4px rgba(0,0,0,.06);background:#FFF;text-decoration:none !important;color:#999 !important">로그인후
+                                열람 가능합니다.</a>
                         {% endif %}
-                        </div>
-                    </form>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">작성자</th>
-                                <th scope="col">내용</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">작성자</th>
+                        <th scope="col">내용</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {% for comment in playlists.playlistcomment_set.all %}
-                            <tr>
-                                <td>{{ comment.user_fk }}</td>
-                                <td>{{ comment.c_contents }}</td>
-                                {% if comment.user_fk == request.user %}
-                                <td><a href="{% url 'music:delete_comment' playlists.id %}" class="btn btn-outline-danger">삭제</a> </td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
-                            </tr>
+                        <tr>
+                            <td>{{ comment.user_fk }}</td>
+                            <td>{{ comment.c_contents }}</td>
+                            {% if comment.user_fk == request.user %}
+                                <td><a href="{% url 'music:delete_comment' playlists.id %}"
+                                       class="btn btn-outline-danger">삭제</a></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
                     {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </div>

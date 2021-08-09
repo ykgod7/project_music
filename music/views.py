@@ -49,7 +49,7 @@ def m_list_like(request):
 
 
 def m_list_new(request):
-    playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
+    playlists = models.MyPlaylist.objects.all().order_by('-list_pub_date')
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
 
 
