@@ -24,8 +24,13 @@ def mypage(request):
 
 def mypage_list(request, list_id):
     playlist = MyPlaylist.objects.filter(user_fk=request.user)
+    liked_playlist = Profile.objects.filter(user=request.user)
     selected_list = Playlist.objects.filter(myplaylist_fk=list_id)
-    return render(request, 'mypage.html', {'playlist': playlist, 'selected_list': selected_list})
+    return render(request, 'mypage.html', {
+        'playlist': playlist,
+        'selected_list': selected_list,
+        'liked_playlist': liked_playlist,
+    })
 
 
 def delete_music(request, music_id, list_id):
