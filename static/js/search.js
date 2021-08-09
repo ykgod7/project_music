@@ -10,7 +10,7 @@ $(function(event) {
                 //alert('검색 진입')
                 $("#list").empty();
                 let musicList = response["results"]["trackmatches"]["track"];
-                if(musicList.length==0){console.log(musicList)}
+                //if(musicList.length==0){console.log(musicList)}
                 for (let i = 0; i < 2; i++) {	//반복문을 쓰는 이유는 track 내에 이름을 모두 출력하기 위함. '3' 위치에 나중에 넣을 변수 : musicList.length
                     if(musicList.length==0){
                         var html = ''
