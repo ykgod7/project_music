@@ -48,6 +48,15 @@
                 </div>
 
             </div>
+
+            <h3>내가 좋아요한 플레이리스트</h3>
+            {% for liked_list in liked_playlist %}
+                <ul>
+                    {% for list in liked_list.like_playlist.all %}
+                        <li><a href="{% url 'music:playlist' list.id %}">{{ list }}</a><br/></li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
         </div>
 
     <script>
