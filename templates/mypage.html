@@ -12,7 +12,7 @@
                 <h3>내가 만든 플레이리스트</h3>
                 {% for list in playlist %}
                     <ul>
-                        <li><a href="/music/{{ user }}/{{ list.id }}">{{ list }}</a></li>
+                        <li><a href="/music/{{ list.id }}">{{ list }}</a></li>
                     </ul>
                 {% endfor %}
 
@@ -34,11 +34,11 @@
                                 <td>{{ select.music_fk }}{{ select.id }}</td>
                                 <td><button class="btn btn-outline-success btn-sm">재생</button> </td>
                                 <td>{{ select.music_fk.artist_fk }}</td>
-                                <td><a href="/music/{{ user }}/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">삭제</a> </td>
+                                <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">삭제</a> </td>
                                 </tr>
                             </tbody>
                         {% endfor %}
-                            <a href="/music/{{ user }}" type="submit" class="btn btn-outline-info" style="float: right" onclick="myFunction()">저장</a>
+                            <a href="/music/mypage/" type="submit" class="btn btn-outline-info" style="float: right" onclick="myFunction()">저장</a>
                     {% else %}
                         플레이리스트를 생성 또는 선택해 주세요.
                     {% endif %}
