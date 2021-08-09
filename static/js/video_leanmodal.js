@@ -83,10 +83,34 @@ function login() {
 };
 
 
+function like_click() {
+    $('#like_ico').click(function () {
+        like_ico = $('.fa-thumbs-up')
+        if (like_ico.attr('data-val') == 0) {
+            like_ico.attr('data-val', 1)
+            like_ico.css('color', "cornflowerblue")
+            like_ico.text('Like')
+        } else {
+            like_ico.attr('data-val', 0)
+            like_ico.css('color', "gray")
+            like_ico.text('Unlike')
+        }
+    })
+}
+
+
+
 $(function (event) {
     // Calling Login Form
     $(".footer_title").click(function () {
-        $(".hidden_playlist").show();
+        if($(".hidden_playlist").css('display') == 'none'){
+            $(".hidden_playlist").show();
+        }
+        else{
+            $(".hidden_playlist").hide();
+            $("#new_playlist").val('')
+        }
+
         return false;
     });
     $(function (event) {
@@ -101,9 +125,11 @@ $(function (event) {
         top: 100,
         overlay: 0.5,
         closeButton: ".modal_close",
-        addButton: ".modal_adfd",
+        addButton: ".modal_add",
     });
+
     addlist()
     savelist()
     login()
+    like_click()
 });

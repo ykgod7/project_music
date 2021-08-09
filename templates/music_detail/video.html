@@ -18,20 +18,33 @@
         {% else %}
             <h3>로그인안됨</h3>
         {% endif %}
+        <h3>{{ like }}</h3>
+        <h3>{{ m_id }}</h3>
+        <h3>{{ m_pk }}</h3>
     </header>
 
     <div id="player"></div>
     <div>
         <div>
             <label>곡제목: {{ videoTitle }}</label>
-            <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>
+            {#             <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>#}
+
+            {% if like %}
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1 style="color: cornflowerblue">Like</i>
+                </button>
+            {% else %}
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0 style="color:gray;">Unlike</i>
+                </button>
+            {% endif %}
 
 
             {% if request.user.is_authenticated %}
-                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#show_playlist'><i class="fa fa-list">Playlist</i></a></button>
+                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#show_playlist'><i
+                        class="fa fa-list">Playlist</i></a></button>
             {% else %}
                 {% comment %}로그인 하도록 유도{% endcomment %}
-                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#popup_login'><i class="fa fa-list">Playlist</i></a></button>
+                <button class="btn" style="color:cornflowerblue;"><a id="modal_trigger" href='#popup_login'><i
+                        class="fa fa-list">Playlist</i></a></button>
 
             {% endif %}
             <div class="row">
@@ -45,7 +58,14 @@
     </div>
 
     <footer>하단</footer>
-
+    <script>
+        $(function (event) {
+            window.addEventListener("beforeunload", function (e) {
+                $.get('/music/music_like/',
+                    {like_type: $('.fa-thumbs-up').attr("data-val"), m_id: {{m_id}}})
+            })
+        })
+    </script>
 
     <script>
         var tag = document.createElement('script');

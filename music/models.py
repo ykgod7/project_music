@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     like_playlist = models.ManyToManyField('MyPlaylist', blank=True, related_name='like_users')
-
+    music = models.ManyToManyField('Music', blank=True, related_name='mlike_users')
+    # music_like = models.IntegerField(default=0)
     def __str__(self):
         return str(self.user)
 

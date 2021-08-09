@@ -16,4 +16,5 @@ urlpatterns = [
     path('playlist_like_toggle/<int:playlist_id>/', views.playlist_like_toggle, name="playlist_like_toggle"),
     path('create_comment/<int:playlist_id>/', views.create_comment, name='create_comment'),
     path('delete_comment/<int:playlist_id>/', views.delete_comment, name='delete_comment'),
+    path('music_like/', views.music_like, name='music_like')
 ]

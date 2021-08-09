@@ -147,11 +147,14 @@ a.btn_red {
     right: 60px;
     top: 0;
     padding: 10px 15px;
-    background: #E4E4E2;
+    background: #F4F4F2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;
-    border: black solid 1px;
+}
+
+.popupHeader .modal_add:hover {
+    background: #E4E4E2;
 }
 
 .popupHeader .modal_del {

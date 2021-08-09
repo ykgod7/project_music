@@ -52,30 +52,39 @@ def m_list_new(request):
     playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
     return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
 
+def music_like(request):
+    like_type = request.GET.get('like_type')
+    music = Music.objects.get(pk= request.GET.get('m_id'))
+    user = request.user
+    music_like = Profile.objects.get(user=user).music
+
+    # if Profile.objects.get(user=user).music.filter(id=music_key.pk).exists()
+    if music_like.filter(id=music.id).exists():
+        music_like.remove(music)
+        music.m_like -= 1
+        music.save()
+    else:
+        music_like.add(music)
+        music.m_like += 1
+        music.save()
+
+
+
 
 def music_video(request, videoId, videoTitle, videoArtist):
-    cur_user = request.user
     v_Title = parse.unquote(videoTitle)
     v_Artist = parse.unquote(videoArtist)
+    try:
+        artist_key = Artist.objects.get(a_name=v_Artist)
+    except:
+        artist_key = Artist.objects.create(a_name=v_Artist)
+    try:
+        music_key = Music.objects.get(m_videoCd=videoId)
+    except:
+        music_key = Music.objects.create(m_title=v_Title, m_videoCd=videoId, artist_fk=artist_key)
     if request.method == 'POST':
-        if 'next' in request.POST:
-            form = AuthenticationForm(data=request.POST)
-            if form.is_valid():
-                user = form.get_user()
-                login(request, user)
-                return redirect(request.POST.get('next'))
         user = User.objects.get(username=request.user)
         myplaylist_pk = request.POST.get('mp_key')
-        # 가수 -> 곡,영상코드
-
-        try:
-            artist_key = Artist.objects.get(a_name=v_Artist)
-        except ObjectDoesNotExist:
-            artist_key = Artist.objects.create(a_name=v_Artist)
-        try:
-            music_key = Music.objects.get(m_title=v_Title)
-        except:
-            music_key = Music.objects.create(m_title=v_Title, m_videoCd=videoId, artist_fk=artist_key)
 
         if (myplaylist_pk == 'new'):
             myplaylist = MyPlaylist.objects.create(mp_name=request.POST.get('mp_name'), user_fk=user)
@@ -89,17 +98,29 @@ def music_video(request, videoId, videoTitle, videoArtist):
         if request.user.is_authenticated:
             user = User.objects.get(username=request.user)
             myplay_list = models.MyPlaylist.objects.filter(user_fk=user.pk)
+            # profile_music = Profile.objects.get(user=user).music.filter(id=music_key.id)
+            # like = True if (profile_music.exists()) else False
+            # Profile.objects.get(user=user).music.filter.
+            if Profile.objects.get(user=user).music.filter(id=music_key.pk).exists():
+                like = True
+            else:
+                like = False
             context = {
                 'play_list': myplay_list,
                 'videoId': videoId,
                 'videoTitle': v_Title,
-                'videoArtist': v_Artist
+                'videoArtist': v_Artist,
+                'like': like,
+                'm_id': music_key.pk,
+                'm_pk': music_key.id
             }
         else:
             context = {'videoId': videoId,
                        'videoTitle': v_Title,
                        'videoArtist': v_Artist,
-                       'form': PopupLoginForm()
+                       'form': PopupLoginForm(),
+                       'like': False,
+                       'm_id': music_key.pk
                        }
         return render(request, 'music_detail/video.html', context)
 
@@ -136,7 +157,6 @@ def playlist_like_toggle(request, playlist_id):
     profile = Profile.objects.get(user=user)
 
     check_like_playlist = profile.like_playlist.filter(id=playlist_id)
-
     if check_like_playlist.exists():
         profile.like_playlist.remove(m_playlist)
         m_playlist.mp_like -= 1
