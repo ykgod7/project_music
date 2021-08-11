@@ -27,10 +27,10 @@ $(function(event) {
                     //console.log(albumTitle, albumArtist)
                     /////// 썸네일 동영상 ID값을 가져오기 위한 ajax 추가 영역
 
-                    //let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
+                    let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
                     //let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";   //장경진
                     //let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"  //황지현
-                    let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
+                    //let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
                     let q_keyword = albumTitle + ' ' + albumArtist + ' official'
                     console.log(q_keyword);
                     (function(i){

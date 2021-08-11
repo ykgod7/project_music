@@ -13,6 +13,7 @@
     <script type="text/javascript" src="{% static 'js/video_leanmodal.js' %}"></script>
 </head>
 <body>
+<a href="/" class="btn btn-outline-primary">home</a>
 <div class="wrap">
     {% csrf_token %}
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
@@ -46,11 +47,11 @@
 
             {% if like %}
                 <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1
-                                                     style="color: cornflowerblue">Like</i>
+                                                     style="color: cornflowerblue">Liked</i>
                 </button>
             {% else %}
                 <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0
-                                                     style="color:gray;">Unlike</i>
+                                                     style="color:gray;">Like</i>
                 </button>
             {% endif %}
         </div>
