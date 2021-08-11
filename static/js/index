@@ -2,7 +2,7 @@
 $(function(event) {
     $('[id=top100_btn]').on('click',function(event) {
     $.ajax({
-        url:'http://localhost:8000/music/music_rank/f_like',
+        url:'/music/music_rank/f_like',
         type:'get',
         dataType:'html',
         success:function(data) {
@@ -19,7 +19,7 @@ $(function(event) {
 $(function(event) {
     $('[id=list_btn]').on('click',function(event) {
     $.ajax({
-        url:'http://localhost:8000/music/list_rank/',
+        url:'/music/list_rank/',
         type:'get',
         dataType:'html',
         success:function(data2) {
@@ -36,7 +36,7 @@ $(function(event) {
 
 window.onload = function(){
     $.ajax({
-        url:'http://localhost:8000/music/list_rank/',
+        url:'/music/list_rank/',
         type:'get',
         dataType:'html',
         success:function(data2) {
