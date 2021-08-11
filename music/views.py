@@ -42,12 +42,12 @@ def delete_music(request, music_id, list_id):
 
 
 def m_music_rank_like(request):
-    info_music = models.Music.objects.all().order_by('-m_like')
+    info_music = models.Music.objects.all().exclude(m_like=0).order_by('-m_like')
     return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_like'})
 
 
 def m_music_rank_title(request):
-    info_music = models.Music.objects.all().order_by('m_title')
+    info_music = models.Music.objects.all().exclude(m_like=0).order_by('m_title')
     return render(request, 'music_rank.html', {'info_music': info_music, 'select': 'f_title'})
 
 
