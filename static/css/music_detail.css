@@ -1,3 +1,18 @@
+.wrap {
+    position: relative;
+    width: 650px;
+    background-color: red;
+    /*left: 50%;*/
+    margin: 0 auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#like_ico, #playlist_ico{
+    float: right;
+    margin-left: 5px;
+}
+
+
 .overlay {
     position: fixed;
     top: 0;
@@ -136,7 +151,7 @@ a.btn_red {
     right: 0;
     top: 0;
     padding: 10px 15px;
-    background: #E4E4E2;
+    background: #F4F4F2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;
@@ -144,7 +159,7 @@ a.btn_red {
 
 .popupHeader .modal_add {
     position: absolute;
-    right: 60px;
+    right: 45px;
     top: 0;
     padding: 10px 15px;
     background: #F4F4F2;
@@ -153,7 +168,7 @@ a.btn_red {
     font-size: 16px;
 }
 
-.popupHeader .modal_add:hover {
+.popupHeader .modal_add:hover, .popupHeader .modal_close:hover {
     background: #E4E4E2;
 }
 

@@ -21,9 +21,8 @@
                 {% endfor %}
 
                 <div class="action_btns">
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit" class="btn btn_red" style="width: 100%">Login</button>
                     <button type="button" class="btn btn_red" id="login_submit" style="width: 100%">Login</button>
+                    <a href="{% url 'user:signup' %}?next={{ request.path }}"><button type="button" class="btn btn_red" id="signup_submit" style="width: 100%">Signup</button></a>
                 </div>
             </form>
         </div>

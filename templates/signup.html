@@ -104,6 +104,9 @@
             <input type="text" class="form-control" name="email" id="email"
                    value="{{ form.email.value|default_if_none:'' }}">
         </div>
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
         <center><button type="submit" class="btn btn-primary" style="margin-top:50px">create</button></center>
     </form>
 </div>

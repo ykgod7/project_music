@@ -11,6 +11,7 @@ function addlist() {
         ptag += "</p>"
         $('#playlist').append(ptag)
         $('#new_playlist').val('')
+        $("#pl_add").removeClass('bi bi-dash-lg').addClass('bi bi-plus-lg')
         $(".hidden_playlist").hide();
         return false;
     });
@@ -68,7 +69,7 @@ function login() {
                     console.log('로그인됨')
                 } else {
                     console.log('로그인 안됨')
-                    console.log(response.con)
+                    console.log(response.con.password)
                     console.log(22)
                     $('err_msg').attr('display', '')
                 }
@@ -96,23 +97,24 @@ function like_click() {
             like_ico.text('Unlike')
         }
     })
-}
-
-
+};
 
 $(function (event) {
     // Calling Login Form
     $(".footer_title").click(function () {
         if($(".hidden_playlist").css('display') == 'none'){
+            $("#pl_add").removeClass('bi bi-plus-lg').addClass('bi bi-dash-lg')
             $(".hidden_playlist").show();
         }
         else{
             $(".hidden_playlist").hide();
             $("#new_playlist").val('')
+            $("#pl_add").removeClass('bi bi-dash-lg').addClass('bi bi-plus-lg')
         }
 
         return false;
     });
+
     $(function (event) {
         $(document).on('click', 'input[type="checkbox"][name="check_list"]', function (event) {
             if ($(this).prop('checked')) {
@@ -121,8 +123,9 @@ $(function (event) {
             }
         })
     });
+
     $("#modal_trigger").leanModal({
-        top: 100,
+        top: 200,
         overlay: 0.5,
         closeButton: ".modal_close",
         addButton: ".modal_add",
