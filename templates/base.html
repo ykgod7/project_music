@@ -7,45 +7,44 @@
     <meta charset="UTF-8">
     <title>just list</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="/static/js/search.js"></script>
     <script src="/static/js/music_rank.js"></script>
     <script src="/static/js/v_button.js"></script>
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="icon" href="static/favicon.ico">
 
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
         body { padding: 0px; margin: 0px; overflow:hidden;
-        font-family: 'Nanum Gothic', sans-serif;
+        font-family: 'Gowun Dodum', sans-serif;
         font-size: 7px;
         }
 
-        video { top : 0;
-	    left : 0;
-	    min-width : 100 %;
-	    min-height : 100 %;
-	    width : auto;
-	    height : auto;
+        video {
+        width : 100%;
+        height : 100vh;
+        object-fit : cover;
 	    z-index : -1;
         }
 
         .content {
-        position: absolute; top: 0; margin-left: 200px; margin-top: 50px;
-        left: 10%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         }
 
-        .login {
-        top: 0px; right: 10px;
-        }
-        </style>
+        /* Start https://www.cursors-4u.com */ * {cursor: url(https://cur.cursors-4u.net/cursors/cur-9/cur817.cur), auto !important;} /* End https://www.cursors-4u.com */
+    </style>
+
 
     {% block html_head %}
     {% endblock %}
 
+
+
 </head>
-
-
 <body>
 
 
@@ -57,11 +56,24 @@
     </video>
 </div>
 
-
+<header id="login" style="color:white; font-weight: bold; font-size:13px;">
+    <div style="position: fixed; right: 100x; top: 10px;">
+        {% if user.is_authenticated %}
+        <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
+        <a role="button" class="" href="music/mypage/">my page</a>
+        {% else %}
+        <a href="{% url 'user:login' %}">log in</a> or
+        <a role="button" class="" href="{% url 'user:signup' %}">join</a>
+        {% endif %}
+    </div>
+</header>
 
 <div class="content">
-     {% block html_body %}
-     {% endblock %}
+
+
+
+    {% block html_body %}
+    {% endblock %}
 </div>
 
 

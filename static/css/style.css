@@ -1,11 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
-.selector{
-    background-color: black;
-    color: white;
-    font-size: 11px;
-    border-radius: 0px 5px 5px 0px
+
+iframe {
+    margin-top: 20px;
+    border: 0
 }
+
+iframe:focus {
+  outline: none;
+}
+
+.result_btn {
+        background-color:white;
+        color:black;
+        font-size: 14px;
+        border-radius: 2px;
+        display: inline-block;
+        padding: 10px 10px;
+        text-decoration: none;
+        box-shadow: 3px 3px 0px 0px #5D5D5D;
+}
+
+.result_btn:active{
+        box-shadow: none;
+        margin-left: 5px;
+        margin-top: 5px;
+}
+
+.selector {
+    background-color: grey;
+    color: black;
+    font-size: 13px;
+    border-radius: 0px 2px 2px 0px;
+    padding: 3px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#content{
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+}
+
+
+.selector:hover {
+    background-color: white;
+    color: grey;
+}
+
+
+#login:hover {
+    color: #FAEB78;
+}
+
+
+#content {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+#content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
+#rank_list {
+font-size: 13px;
+}
+
 
 .playlist {
     height: 100px;
@@ -27,7 +90,7 @@
        border-left: none;
        border-right: none;
        border-bottom: 1px solid white;
-       margin-bottom: 6px;
+       margin-bottom: 12px;
        right: 0;
        color:white;
        }
@@ -40,10 +103,28 @@ a {
 
 h1 {
     font-family: 'Yesteryear', cursive;
-    font-size: 77px;
+    font-size: 82px;
     font-style: italic;
     color: white;
     margin: 0;
+    font-weight: bold;
 }
 
 input:focus {outline:none;}
+
+
+select {
+    width:60px;
+    padding:5px;
+    border:1px solid #999;
+    background:url('static/down.png') no-repeat 95% 50%;
+    border-radius:5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance : none;
+}
+
+
+.form-select::-ms-expand {
+   display: none;
+}

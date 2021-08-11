@@ -14,17 +14,25 @@ from . import models
 from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist, Artist
 from urllib import parse
 
+def index(request):
+    return render(request, 'index.html')
 
 def mypage(request):
     user = get_user_model()
+    liked_playlist = Profile.objects.filter(user=request.user)
     playlist = MyPlaylist.objects.filter(user_fk=request.user)
-    return render(request, 'mypage.html', {'playlist': playlist})
+    return render(request, 'mypage.html', {'playlist': playlist, 'liked_playlist': liked_playlist})
 
 
 def mypage_list(request, list_id):
     playlist = MyPlaylist.objects.filter(user_fk=request.user)
+    liked_playlist = Profile.objects.filter(user=request.user)
     selected_list = Playlist.objects.filter(myplaylist_fk=list_id)
-    return render(request, 'mypage.html', {'playlist': playlist, 'selected_list': selected_list})
+    return render(request, 'mypage.html', {
+        'playlist': playlist,
+        'selected_list': selected_list,
+        'liked_playlist': liked_playlist,
+    })
 
 
 def delete_music(request, music_id, list_id):
@@ -45,12 +53,17 @@ def m_music_rank_title(request):
 
 def m_list_like(request):
     playlists = models.MyPlaylist.objects.all().order_by('-mp_like')
-    return render(request, 'index.html', {'playlists': playlists, 'select': 'l_like'})
+    return render(request, 'list_rank.html', {'playlists': playlists, 'select': 'l_like'})
 
 
 def m_list_new(request):
     playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
-    return render(request, 'index.html', {'playlists': playlists, 'select': 'l_new'})
+    return render(request, 'list_rank.html', {'playlists': playlists, 'select': 'l_new'})
+
+
+def list_rank(request):
+    playlists = models.MyPlaylist.objects.all().order_by('-mp_like')
+    return render(request, 'list_rank.html', {'playlists': playlists, 'select': 'l_like'})
 
 
 def music_video(request, videoId, videoTitle, videoArtist):
