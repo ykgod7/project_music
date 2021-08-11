@@ -10,7 +10,17 @@ $(function(event) {
                 //alert('검색 진입')
                 $("#list").empty();
                 let musicList = response["results"]["trackmatches"]["track"];
+                //if(musicList.length==0){console.log(musicList)}
                 for (let i = 0; i < 2; i++) {	//반복문을 쓰는 이유는 track 내에 이름을 모두 출력하기 위함. '3' 위치에 나중에 넣을 변수 : musicList.length
+                    if(musicList.length==0){
+                        var html = ''
+                        html += '<div class="container" style="text-align:center; height:260px">' +
+                            '<div class="container" style="display:inline-block; text-align:center; margin-top:20px; width:360px; height:240px; ">' +
+                            '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/wnudr9qjrbA/mqdefault.jpg"></iframe><br>' +
+                            '<h6>검색 결과가 없어요. 검색어를 다시 확인해주세요!</h6></div></div>'
+                        $("#list").append(html);
+                        break;
+                    }
                     let albumTitle = musicList[i]["name"]
                     let albumArtist = musicList[i]["artist"]
                     let albumUrl = musicList[i]["url"]
@@ -36,10 +46,10 @@ $(function(event) {
                                 albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* 속성에 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
                                 //alert(albumTitleToEncoding)
                                 var html = '';
-                                html += '<div class="container" style="text-align:center; height:260px">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
-                                    '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
+                                html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
+                                    '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
+                                    '<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
@@ -48,16 +58,15 @@ $(function(event) {
                                 console.log(err)
                                 console.log('샘플 videoId=BlackPink:Kill This Love')
                                 //albumTitle = 'Kill This Love'
-                                albumTitle = '내 손을 잡아'
                                 //albumArtist = 'Black Pink'
                                 albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* 속성에 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
                                 //alert(albumTitleToEncoding)
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
-                                html += '<div class="container" style="text-align:center; height:260px">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; border-radius: 15%; margin-top:20px; width:360px; height:240px; background-color: #BECDFF;">' +
-                                    '<iframe style="margin-top:20px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="btn btn-default v_button" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
+                                html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
+                                    '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
+                                    '<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);

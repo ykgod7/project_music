@@ -1,57 +1,142 @@
-{% extends 'base.html' %}
-{% block html_body %}
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link active" href="/">Main</a>
-      </li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="icon" href="static/favicon.ico">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
-    <!--   컨텐츠 넣는 구간      -->
-        <div id="content" style="width: 600px">
-            <div id="playlists" style="background-color: bisque; width: 600px; height: 500px">
-                <h3>내가 만든 플레이리스트</h3>
-                {% for list in playlist %}
-                    <ul>
-                        <li><a href="/music/{{ list.id }}">{{ list }}</a></li>
-                    </ul>
+    body{
+    background-color: black;
+    padding-left: 30px;
+    color: white;
+    }
+
+    h1 {
+    font-family: 'Yesteryear', cursive;
+    font-size: 77px;
+    font-style: italic;
+    color: white;
+    margin: 0;
+    font-weight: bold;
+    padding-left: 10px;
+    }
+
+    #content {
+    overflow:scroll;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    }
+
+    a {
+    text-decoration: none;
+    color: inherit;
+    }
+
+    #content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    }
+
+    table {
+    width : 100%;
+    }
+
+
+    td, th {
+        text-align : left;
+        vertical-align : middle;
+    }
+
+    #rank_list {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    }
+
+    #rank_list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    }
+
+    .rank{
+    font-size: 8;
+    }
+
+</style>
+</head>
+
+
+<body>
+
+<!--    <ul class="nav">-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link active" href="/">Main</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+
+<!--   컨텐츠 넣는 구간      -->
+
+
+<div id="content" style="width: 600px">
+    <div id="playlists" style="width: 600px; height: 500px">
+    <h1><a class="nav-link active" href="/">my music</a></h1>
+        {% for list in playlist %}
+        <ul>
+            <li><a href="/music/{{ list.id }}">{{ list }}</a></li>
+        </ul>
+        {% endfor %}
+
+        <div id="song" class="overflow-auto" style="height: 320px; margin-top: 0px;">
+            <table class="table">
+                <thead>
+                <tr style="margin-top: 20px;">
+                    <th scope="col">#</th>
+                    <th scope="col">music</th>
+                    <th scope="col">play</th>
+                    <th scope="col">artist</th>
+                    <th scope="col">delete</th>
+                </tr>
+                </thead>
+                {% if selected_list %}
+                {% for select in selected_list %}
+                <tbody>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ select.music_fk }}</td>
+                <td><button class="btn btn-outline-success btn-sm"
+                            onclick="location.href='/music/musicvideo/{{ select.music_fk.m_videoCd }}/{{ select.music_fk.m_title }}/{{ select.music_fk.artist_fk }}/'
+                            " style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></td>
+                <td>{{ select.music_fk.artist_fk }}</td>
+                <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">X</a> </td>
+                </tr>
+                </tbody>
                 {% endfor %}
+                <a href="/music/mypage/" type="submit" class="btn btn-outline-info" style="float: right" onclick="myFunction()">save</a>
+                {% else %}
+                <div style="margin-bottom: 20px; font-style: italic;">create your list or edit</div>
+                {% endif %}
+            </table>
 
-                <div id="song" class="overflow-auto" style="height: 320px">
-                    <table class="table">
-                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">곡</th>
-                                <th scope="col">재생</th>
-                                <th scope="col">아티스트</th>
-                                <th scope="col">삭제</th>
-                            </tr>
-                          </thead>
-                        {% if selected_list %}
-                        {% for select in selected_list %}
-                            <tbody>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ select.music_fk }}{{ select.id }}</td>
-                                <td><button class="btn btn-outline-success btn-sm">재생</button> </td>
-                                <td>{{ select.music_fk.artist_fk }}</td>
-                                <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">삭제</a> </td>
-                                </tr>
-                            </tbody>
-                        {% endfor %}
-                            <a href="/music/mypage/" type="submit" class="btn btn-outline-info" style="float: right" onclick="myFunction()">저장</a>
-                    {% else %}
-                        플레이리스트를 생성 또는 선택해 주세요.
-                    {% endif %}
-                    </table>
-
-                </div>
-
-            </div>
         </div>
 
-    <script>
+    </div>
+    <h1>my list</h1>
+    {% for liked_list in liked_playlist %}
+    <ul>
+        {% for list in liked_list.like_playlist.all %}
+        <li><a href="{% url 'music:playlist' list.id %}">{{ list }}</a><br/></li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
+</div>
+
+<script>
     function myFunction() {
         alert('저장되었습니다!')
     }
     </script>
-{% endblock %}
+
+</body>

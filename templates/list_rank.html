@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function l_select(obj){
+            if($(obj).val()=='l_like'){
+
+                $.ajax({
+                url:'/music/l_like/',
+                type:'get',
+                dataType:'html',
+                success:function(data2) {
+                $("#list").empty();
+                $("#list").html(data2);
+                },
+                error : function() {
+                alert('실패했어요!')
+                }
+                })
+            }
+
+
+            else if($(obj).val()=='l_new'){
+                $.ajax({
+                url:'/music/l_new/',
+                type:'get',
+                dataType:'html',
+                success:function(data2) {
+                $("#list").empty();
+                $("#list").html(data2);
+                },
+                error : function() {
+                alert('실패했어요!')
+                }
+                })
+            }
+
+        }
+    </script>
+</head>
+<body>
+<select onchange='l_select(this)' name="l_select" class="form-select" style="width: 100%; font-family: 'Gowun Dodum', sans-serif; font-weight: bold;
+                            background: url(static/down.png) no-repeat 95% 50%; border: none; font-size:14px; padding-left: 14px;">
+    <optgroup label="">
+        {% if select == 'l_like' %}
+        <option value="l_like" selected="selected">like</option>
+        <option value="l_new">new</option>
+        {% endif %}
+        {% if select == 'l_new' %}
+        <option value="l_like">like</option>
+        <option value="l_new" selected="selected">new</option>
+        {% endif %}
+    </optgroup>
+</select>
+
+{% for list in playlists %}
+<div class="playlist"
+     style="display:table; width: 100%; border:none; margin: 0px; height:60px; padding:0px 35px 0px 35px;
+              text-align:left; font-family: 'Gowun Dodum', sans-serif;">
+    <div style="display:table-cell; vertical-align:middle; margin:0px; padding-top:40px;">
+        <a style="font-weight: bold; text-decoration: none; font-size:17px; margin: 0px; display: block;" href="{% url 'music:playlist' list.id %}">
+            <div style="font-size:17px; color:black; margin: 0px; display: block;">{{ list.mp_name }} ♥{{ list.mp_like }}</div></a>
+        <div style="font-size:13px; color:grey; height: 13px; margin: 0px;">{{ list.user_fk.username }} - {{ list.list_pub_date }}
+<!--        <img src="static/vinyl.png" width="14px" style="margin-left:10px;">--></div>
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>

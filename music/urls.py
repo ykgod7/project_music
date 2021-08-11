@@ -8,6 +8,7 @@ urlpatterns = [
     path('music_rank/f_title/', views.m_music_rank_title, name='music_rank_title'),
     path('l_like/', views.m_list_like, name='list_like'),
     path('l_new/', views.m_list_new, name='list_new'),
+    path('list_rank/', views.list_rank, name='list_rank'),
     path('mypage/', views.mypage, name='mypage'),
     path('<int:list_id>/', views.mypage_list, name='mypage_list'),
     path('<int:music_id>/<int:list_id>/', views.delete_music, name='delete_music'),

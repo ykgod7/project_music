@@ -16,18 +16,18 @@
 <div class="wrap">
     {% csrf_token %}
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <header style="background-color: yellow;">
-        {% if user.is_authenticated %}
-            <h3>로그인됨</h3>
-        {% else %}
-            <h3>로그인안됨</h3>
-        {% endif %}
-    </header>
+{#    <header style="background-color: yellow;">#}
+{#        {% if user.is_authenticated %}#}
+{#            <h3>로그인됨</h3>#}
+{#        {% else %}#}
+{#            <h3>로그인안됨</h3>#}
+{#        {% endif %}#}
+{#    </header>#}
 
     <div id="player"></div>
 
     <div>
-        <div style="background-color: green">
+        <div>
             <label>곡제목: {{ videoTitle }}</label>
             {#             <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>#}
 
@@ -54,7 +54,7 @@
                 </button>
             {% endif %}
         </div>
-        <div style="background-color: blue">
+        <div>
             <label>아티스트: {{ videoArtist }}</label>
         </div>
 
@@ -64,7 +64,7 @@
     </div>
 
 
-    <footer>하단</footer>
+    <footer></footer>
 </div>
 <script>
     $(function (event) {
