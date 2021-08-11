@@ -82,7 +82,7 @@
 
 <div id="content" style="width: 600px">
     <div id="playlists" style="width: 600px; height: 500px">
-        <h1>my music</h1>
+    <h1><a class="nav-link active" href="/">my music</a></h1>
         {% for list in playlist %}
         <ul>
             <li><a href="/music/{{ list.id }}">{{ list }}</a></li>
@@ -104,7 +104,7 @@
                 {% for select in selected_list %}
                 <tbody>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ select.music_fk }}{{ select.id }}</td>
+                <td>{{ select.music_fk }}</td>
                 <td><button class="btn btn-outline-success btn-sm"
                             onclick="location.href='/music/musicvideo/{{ select.music_fk.m_videoCd }}/{{ select.music_fk.m_title }}/{{ select.music_fk.artist_fk }}/'
                             " style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></td>
