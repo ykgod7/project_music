@@ -13,26 +13,31 @@
     <script type="text/javascript" src="{% static 'js/video_leanmodal.js' %}"></script>
 </head>
 <body>
-<a href="/" class="btn btn-outline-primary">home</a>
+<header id="login" style="color:white; font-weight: bold; font-size:13px;">
+    <div style="position: fixed; right: 100px; top: 10px;">
+        {% if user.is_authenticated %}
+            <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
+            <a role="button" class="" href="music/mypage/">my page</a>
+        {% else %}
+            <a href="{% url 'user:login' %}">log in</a> or
+            <a role="button" class="" href="{% url 'user:signup' %}">join</a>
+        {% endif %}
+        <a href="{% url 'index' %}">Home</a>
+
+    </div>
+</header>
+<div><h3>{{ like }}</h3></div>
+<div><h3>{{ m_id }}</h3></div>
+<div><h3>{{ m_pk }}</h3></div>
 <div class="wrap">
     {% csrf_token %}
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-{#    <header style="background-color: yellow;">#}
-{#        {% if user.is_authenticated %}#}
-{#            <h3>로그인됨</h3>#}
-{#        {% else %}#}
-{#            <h3>로그인안됨</h3>#}
-{#        {% endif %}#}
-{#    </header>#}
-
     <div id="player"></div>
-
     <div>
         <div>
             <label>곡제목: {{ videoTitle }}</label>
-            {#             <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>#}
-
-
+        </div>
+        <div>
+            <label>아티스트: {{ videoArtist }}</label>
             {% if request.user.is_authenticated %}
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#show_playlist'><i
@@ -42,40 +47,44 @@
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#popup_login'><i
                         class="fa fa-list">Playlist</i></a></button>
-
             {% endif %}
 
-            {% if like %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1
-                                                     style="color: cornflowerblue">Liked</i>
+            {% if like == 0 %}
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1 style="color: cornflowerblue">Like</i>
                 </button>
             {% else %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0
-                                                     style="color:gray;">Like</i>
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0 style="color:gray;">Unlike</i>
                 </button>
             {% endif %}
-        </div>
-        <div>
-            <label>아티스트: {{ videoArtist }}</label>
         </div>
 
         {% include 'music_detail/popup_login.html' %}
         {% include 'music_detail/popup_playlist.html' %}
-
     </div>
 
 
     <footer></footer>
 </div>
-<script>
-    $(function (event) {
-        window.addEventListener("beforeunload", function (e) {
-            $.get('/music/music_like/',
-                {like_type: $('.fa-thumbs-up').attr("data-val"), m_id: {{m_id}}})
+{% if user.is_authenticated %}
+    <script>
+        $(function (event) {
+            $('#like_ico').click(function () {
+                like_ico = $('.fa-thumbs-up')
+                if (like_ico.attr('data-val') == 0) {
+                    like_ico.attr('data-val', 1)
+                    like_ico.css('color', "cornflowerblue")
+                    like_ico.text('Like')
+                } else {
+                    like_ico.attr('data-val', 0)
+                    like_ico.css('color', "gray")
+                    like_ico.text('Unlike')
+                }
+                $.get('/music/music_like/',
+                    {like_type: like_ico.attr('data-val'), m_id: {{m_id}}})
+            })
         })
-    })
-</script>
-
+    </script>
+{% endif %}
 <script>
     var tag = document.createElement('script');
 
@@ -105,7 +114,7 @@
 
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
+            setTimeout(stopVideo, 100000);
             done = true;
         }
     }
