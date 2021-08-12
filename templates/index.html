@@ -8,6 +8,14 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    body {
+    -ms-overflow-style: none;
+    z-index : 20;
+    }
+
+
+    body::-webkit-scrollbar{ display:none; }
+
 </style>
 
 
@@ -17,8 +25,9 @@
 
 
 
+<body>
 
-<a href="" onClick="top.location='javascript:location.reload()'"><h1>just list</h1></a>
+
 
 
 <form onsubmit="return false">
@@ -29,6 +38,10 @@
     </div>
 </form>
 
+<div style="padding-top: 30px; float: left;">
+    <div class="selector" id="top100_btn" style="margin-bottom: 12px;"><a role="button">top100</a></div>
+    <div class="selector" id="list_btn" style=""><a role="button">list</a></div>
+</div>
 
 <div id="content" style="overflow:scroll; background-color: white; width: 500px; height: 700px; float: left;" data-da="container">
     <div id="list" class="overflow-auto">
@@ -41,8 +54,7 @@
 
 
 
-<div style="padding-top: 30px; float: left;">
-    <div class="selector" id="top100_btn" style="margin-bottom: 12px;"><a role="button">top100</a></div>
-    <div class="selector" id="list_btn" style=""><a role="button">list</a></div>
-</div>
+
+
+</body>
 {% endblock %}

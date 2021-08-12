@@ -1,34 +1,58 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+    .popupContainer{
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    }
+
+       #new_playlist {
+       width: 285px;
+       height: 20px;
+       background-color: black;
+       border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom: 1px solid white;
+       margin-bottom: 6px;
+       color:white;
+       }
+
+</style>
+
 <div id="show_playlist" class="popupContainer" style="display:none;">
     <header class="popupHeader">
-        <span class="header_title">재생목록</span>
-        <span class="modal_close"><i class="bi bi-x-lg"></i></span>
-        <span class="modal_add" id="modal_addd"><i class="bi bi-plus-lg"> 등록</i></span>
+        <span class="header_title">playlist</span>
+        <span class="modal_close"><img src="/static/delete.png" width="13px" class="bi bi-x-lg"></span>
+        <span class="modal_add" id="modal_addd" style="padding-right:50px;"><img src="/static/add.png" width="16px" class="bi bi-plus-lg"></span>
 
-        {% comment %}<span class="modal_del"><i class="bi bi-dash-lg"> 삭제</i></span>{% endcomment %}
+        {% comment %}<span class="modal_del"><img src="/static/delete.png" width="13px" class="bi bi-dash-lg"></span>{% endcomment %}
     </header>
 
     <section class="popupBody">
         <div id="playlist">
             {% for pl in play_list %}
-                <p>
-                    <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
-                           value='{{ pl.pk }}' style="zoom:2.0"/>
-                    <label for='check_list{{ forloop.counter }}'
-                           style="top: -3px; position: relative; font-size: 20pt">{{ pl.mp_name }}</label>
-                </p>
+            <p>
+                <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
+                       value='{{ pl.pk }}' style="zoom:2.0"/>
+                <label for='check_list{{ forloop.counter }}'
+                       style="top: -3px; position: relative; font-size: 20pt">{{ pl.mp_name }}</label>
+            </p>
             {% endfor %}
         </div>
     </section>
 
     <footer class="popupFooter">
-        <span class="footer_title" style="cursor: pointer"><i class="bi bi-plus-lg" id="pl_add"> 새 재생목록 만들기</i></span>
+        <span class="footer_title" style="cursor: pointer"><i class="bi bi-plus-lg" id="pl_add"> new play list</i></span>
         <div class="hidden_playlist" style="display: none">
             <form>
-                <label>이름</label>
+                <label>title:</label>
                 <input id="new_playlist" type="text"/>
                 <br/>
                 <div class="action_btns">
-                    <div class="one_middle btn btn_red" id="add_list">재생목록 만들기</div>
+                    <div class="btn" id="add_list" style="width: 285px; margin-bottom: 15px;">confirm</div>
                 </div>
             </form>
         </div>

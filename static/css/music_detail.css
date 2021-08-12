@@ -1,3 +1,22 @@
+
+.btn {
+    background-color:white;
+    color:black;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 2px;
+    display: inline-block;
+    padding: 10px 10px;
+    text-decoration: none;
+    box-shadow: 3px 3px 0px 0px #5D5D5D;
+}
+
+.btn:active{
+    box-shadow: none;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
 .wrap {
     position: relative;
     width: 650px;
@@ -40,7 +59,6 @@
 .popup {
     margin: 70px auto;
     padding: 20px;
-    background: #fff;
     border-radius: 5px;
     width: 80%;
     position: relative;
@@ -80,7 +98,6 @@ input[type="checkbox"] {
     height: auto;
     left: 45%;
     top: 60px;
-    background: #FFF;
 }
 
 /*#modal_trigger {*/
@@ -138,7 +155,6 @@ a.btn_red {
 }
 
 .popupHeader {
-    background: #F4F4F2;
     position: relative;
     padding: 10px 20px;
     border-bottom: 1px solid #DDD;
@@ -150,7 +166,6 @@ a.btn_red {
     right: 0;
     top: 0;
     padding: 10px 15px;
-    background: #F4F4F2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;
@@ -158,17 +173,16 @@ a.btn_red {
 
 .popupHeader .modal_add {
     position: absolute;
-    right: 45px;
+    right: 0px;
     top: 0;
     padding: 10px 15px;
-    background: #F4F4F2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;
 }
 
 .popupHeader .modal_add:hover, .popupHeader .modal_close:hover {
-    background: #E4E4E2;
+
 }
 
 .popupHeader .modal_del {
@@ -176,7 +190,6 @@ a.btn_red {
     right: 140px;
     top: 0;
     padding: 10px 15px;
-    background: #E4E4E2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;
@@ -189,10 +202,8 @@ a.btn_red {
 }
 
 .popupFooter {
-    background: #F4F4F2;
     position: relative;
     padding: 10px 20px;
-    border-bottom: 1px solid #DDD;
     font-weight: bold;
 }
 
@@ -201,7 +212,6 @@ a.btn_red {
     right: 0;
     top: 0;
     padding: 10px 15px;
-    background: #E4E4E2;
     cursor: pointer;
     color: #aaa;
     font-size: 16px;

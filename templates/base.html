@@ -16,10 +16,15 @@
 
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-        body { padding: 0px; margin: 0px; overflow:hidden;
+        body { padding: 0px; margin: 0px;
+        background-color: black;
         font-family: 'Gowun Dodum', sans-serif;
         font-size: 7px;
+        -ms-overflow-style: none;
         }
+
+        body::-webkit-scrollbar{ display:none; }
+        header::-webkit-scrollbar{ display:none; }
 
         video {
         width : 100%;
@@ -34,6 +39,34 @@
         left: 50%;
         transform: translate(-50%, -50%);
         }
+
+
+        header {
+            overflow: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            padding: 1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index : 1;
+            -ms-overflow-style: none;
+         }
+
+        h1, a { margin: 0; }
+
+        body, html {
+            height: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
 
         /* Start https://www.cursors-4u.com */ * {cursor: url(https://cur.cursors-4u.net/cursors/cur-9/cur817.cur), auto !important;} /* End https://www.cursors-4u.com */
     </style>
@@ -50,14 +83,16 @@
 
 
 <!--배경화면-->
-<div class="background" style="position: relative; margin: 0px; color: white;">
+<div class="background" style="position: relative; fixed; margin: 0px; color: white;">
     <video muted autoplay loop>
         <source src="static/Vinyl.mp4" type="video/mp4">
     </video>
 </div>
 
-<header id="login" style="color:white; font-weight: bold; font-size:13px;">
-    <div style="position: fixed; right: 100x; top: 10px;">
+
+<header id="login">
+
+    <div style="position: fixed; right: 70px; top: 10px; color:white; font-size:13px;">
         {% if user.is_authenticated %}
         <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
         <a role="button" class="" href="music/mypage/">my page</a>
@@ -66,16 +101,18 @@
         <a role="button" class="" href="{% url 'user:signup' %}">join</a>
         {% endif %}
     </div>
+
 </header>
 
-<div class="content">
 
+
+    <div class="content" style="height: 100%; padding-top: 2%;">
+    <div><a onClick="top.location='javascript:location.reload()'" style="right: 50%; top:1% "><h1>just list</h1></a></div>
 
 
     {% block html_body %}
     {% endblock %}
 </div>
-
 
 </body>
 

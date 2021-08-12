@@ -1,7 +1,41 @@
+<style>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+        #popup_login {
+        background-color: black;
+        color: white;
+        font-family: 'Gowun Dodum', sans-serif;
+        font-weight: bold;
+        font-size: 13px;
+        border: 1px solid white
+        }
+
+
+
+       .form-control {
+       width: 100px;
+       height: 20px;
+       background-color: black;
+       border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom: 1px solid white;
+       margin-bottom: 6px;
+       right: 0;
+       color:white;
+       }
+
+       /* Start https://www.cursors-4u.com */ * {cursor: url(https://cur.cursors-4u.net/cursors/cur-9/cur817.cur), auto !important;} /* End https://www.cursors-4u.com */
+
+       input:focus {outline:none;}
+
+</style>
+
 <div id="popup_login" class="popupContainer" style="display:none;">
     <header class="popupHeader">
         <span class="header_title">Login</span>
-        <span class="modal_close"><i class="bi bi-x-lg"></i></span>
+        <span class="modal_close" style="position:right: 10px; top:0px;"><img src="/static/delete.png" width="13px"></span>
     </header>
 
     <section class="popupBody">
@@ -12,18 +46,18 @@
             <form class="popuplogin_form" method="post" action="{% url 'user:popuplogin' %}">
                 {% csrf_token %}
                 {% for field in form %}
-                    {% if field.non_field_errors %}
-                        {{ form.non_field_errors }}
-                    {% endif %}
-                    {{ field.label }}
-                    {{ field }}
-                    <br>
+                {% if field.non_field_errors %}
+                {{ form.non_field_errors }}
+                {% endif %}
+                {{ field.label }}
+                {{ field }}
+                <br>
                 {% endfor %}
 
-                <div class="action_btns">
-                    <button type="button" class="btn btn_red" id="login_submit" style="width: 100%">Login</button>
-                    <a href="{% url 'user:signup' %}?next={{ request.path }}"><button type="button" class="btn btn_red" id="signup_submit" style="width: 100%">Signup</button></a>
-                </div>
+
+                <div><button type="button" class="btn" id="login_submit" style="width: 285px; margin-bottom: 15px;">Login</button></div>
+                <div><a href="{% url 'user:signup' %}?next={{ request.path }}"><button type="button" class="btn" id="signup_submit" style="width: 285px">Signup</button></a></div>
+
             </form>
         </div>
 

@@ -2,36 +2,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'css/music_detail.css' %}" xmlns="http://www.w3.org/1999/html">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/jquery.leanModal.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/music_detail.css' %}" xmlns="http://www.w3.org/1999/html">
     <script type="text/javascript" src="{% static 'js/video_leanmodal.js' %}"></script>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
+
+    body {
+    overflow:scroll;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    background-color: black;
+    color: white;
+    padding: 30px 0px 30px 30px;
+    }
+
+    body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    }
+
+    a {
+    text-decoration: none;
+    color: white;
+    }
+
+
+    </style>
 </head>
 <body>
+<header id="login" style="color:white; font-weight: bold; font-size:13px;">
+    <div style="position: fixed; right: 100px; top: 10px;">
+        {% if user.is_authenticated %}
+            <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
+            <a role="button" class="" href="music/mypage/">my page</a>
+        {% else %}
+            <a href="{% url 'user:login' %}">log in</a> or
+            <a role="button" class="" href="{% url 'user:signup' %}">join</a>
+        {% endif %}
+        <a href="{% url 'index' %}">Home</a>
+
+    </div>
+</header>
+
 <div class="wrap">
     {% csrf_token %}
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-{#    <header style="background-color: yellow;">#}
-{#        {% if user.is_authenticated %}#}
-{#            <h3>로그인됨</h3>#}
-{#        {% else %}#}
-{#            <h3>로그인안됨</h3>#}
-{#        {% endif %}#}
-{#    </header>#}
 
-    <div id="player"></div>
+    <div style="margin-bottom: 20px; font-size:40px;">
+        <label>{{ videoTitle }}</label>
+        <label style="font-size:20px; color:grey;">{{ videoArtist }} ♥{{ like }}</label>
+    </div>
 
+    <div id="player" style="margin-bottom:10px;"></div>
     <div>
         <div>
-            <label>곡제목: {{ videoTitle }}</label>
-            {#             <button class="btn" style="color:cornflowerblue;"><i class="fa fa-thumbs-up">Like</i></button>#}
-
-
             {% if request.user.is_authenticated %}
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#show_playlist'><i
@@ -41,40 +71,42 @@
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#popup_login'><i
                         class="fa fa-list">Playlist</i></a></button>
-
             {% endif %}
 
-            {% if like %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1
-                                                     style="color: cornflowerblue">Like</i>
+            {% if like == 0 %}
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1 style="color: black; margin-right:10px;">♡</i>
                 </button>
             {% else %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0
-                                                     style="color:gray;">Unlike</i>
+                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0 style="color: black; ">♥</i>
                 </button>
             {% endif %}
-        </div>
-        <div>
-            <label>아티스트: {{ videoArtist }}</label>
         </div>
 
         {% include 'music_detail/popup_login.html' %}
         {% include 'music_detail/popup_playlist.html' %}
-
     </div>
 
 
     <footer></footer>
 </div>
-<script>
-    $(function (event) {
-        window.addEventListener("beforeunload", function (e) {
-            $.get('/music/music_like/',
-                {like_type: $('.fa-thumbs-up').attr("data-val"), m_id: {{m_id}}})
+{% if user.is_authenticated %}
+    <script>
+        $(function (event) {
+            $('#like_ico').click(function () {
+                like_ico = $('.fa-thumbs-up')
+                if (like_ico.attr('data-val') == 0) {
+                    like_ico.attr('data-val', 1)
+                    like_ico.text('♥')
+                } else {
+                    like_ico.attr('data-val', 0)
+                    like_ico.text('♡')
+                }
+                $.get('/music/music_like/',
+                    {like_type: like_ico.attr('data-val'), m_id: {{m_id}}})
+            })
         })
-    })
-</script>
-
+    </script>
+{% endif %}
 <script>
     var tag = document.createElement('script');
 
@@ -104,7 +136,7 @@
 
     function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
+            setTimeout(stopVideo, 100000);
             done = true;
         }
     }

@@ -27,10 +27,10 @@ $(function(event) {
                     //console.log(albumTitle, albumArtist)
                     /////// 썸네일 동영상 ID값을 가져오기 위한 ajax 추가 영역
 
-                    //let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
+                    let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
                     //let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";   //장경진
                     //let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"  //황지현
-                    let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
+                    //let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
                     let q_keyword = albumTitle + ' ' + albumArtist + ' official'
                     console.log(q_keyword);
                     (function(i){
@@ -49,7 +49,7 @@ $(function(event) {
                                 html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
+                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
@@ -66,7 +66,8 @@ $(function(event) {
                                 html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
+                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
+                                    //'<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
