@@ -41,6 +41,14 @@ def mypage_list(request, list_id):
 def delete_music(request, music_id, list_id):
     selected_music = get_object_or_404(Playlist, pk=music_id)
     selected_music.delete()
+    music = Music.objects.get(pk=request.GET.get('m_id'))
+    user = request.user
+    music_like = Profile.objects.get(user=user).music
+
+    if music_like.filter(id=music.id).exists():
+        music_like.remove(music)
+        music.m_like -= 1
+        music.save()
     return HttpResponseRedirect(reverse('music:mypage_list', args=(list_id,)))
 
 
