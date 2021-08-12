@@ -57,7 +57,7 @@
 </div>
 
 <header id="login" style="color:white; font-weight: bold; font-size:13px;">
-    <div style="position: fixed; right: 100x; top: 10px;">
+    <div style="position: fixed; right: 100px; top: 10px;">
         {% if user.is_authenticated %}
         <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
         <a role="button" class="" href="/music/mypage/">my page</a>
