@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="/static/js/search.js"></script>
     <script src="/static/js/music_rank.js"></script>
-    <script src="/static/js/v_button.js"></script>
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="shortcut icon" href="static/favicon.ico">
     <link rel="icon" href="static/favicon.ico">
@@ -57,10 +56,10 @@
 </div>
 
 <header id="login" style="color:white; font-weight: bold; font-size:13px;">
-    <div style="position: fixed; right: 100x; top: 10px;">
+    <div style="position: fixed; right: 100px; top: 10px;">
         {% if user.is_authenticated %}
         <a href="{% url 'user:logout' %}">{{ user.username }} (out)</a>
-        <a role="button" class="" href="music/mypage/">my page</a>
+        <a role="button" class="" href="/music/mypage/">my page</a>
         {% else %}
         <a href="{% url 'user:login' %}">log in</a> or
         <a role="button" class="" href="{% url 'user:signup' %}">join</a>
