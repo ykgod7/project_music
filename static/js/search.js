@@ -53,9 +53,9 @@ $(function(event) {
                                 html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<input type="button" value="'+albumArtist+':'+albumTitle+'" class="rsult_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=500, left='+popup_x+', top='+popup_y+'\')" />'+
-                                    //'<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
-                                    //albumArtist + ' : ' + albumTitle +
+                                    //'<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=500, left='+popup_x+', top='+popup_y+'\')">'+
+                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
+                                    albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
                             },
@@ -72,8 +72,8 @@ $(function(event) {
                                 html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=500, left='+popup_x+', top='+popup_y+'\')">'+
-                                    //'<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'/\'">'+  // ajax 문제 onclick으로 해결한 코드
+                                    //'<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=500, left='+popup_x+', top='+popup_y+'\')">'+
+                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'/\'">'+  // ajax 문제 onclick으로 해결한 코드
                                     //'<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +  // v_button 자바스크립트 이용 : ajax로 인한 개별 지정 문제
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
@@ -89,3 +89,10 @@ $(function(event) {
         })
     })
 })
+// $(function(){
+//     $(Document).on('click', '.result_btn', function(){
+//         //alert('뮤비 버튼 진입')
+//         //alert($('.v_button').attr('data-videoCd')+' '+encodeURI($('.v_button').attr('data-videoTitle'))+' '+encodeURI($('.v_button').attr('data-videoArtist')))
+//         document.location.href = '/music/musicvideo/'+$('.result_btn').attr('data-videoCd')+'/'+encodeURI($('.result_btn').attr('data-videoTitle'))+'/'+encodeURI($('.result_btn').attr('data-videoArtist'))+'/'
+//     })
+// })
