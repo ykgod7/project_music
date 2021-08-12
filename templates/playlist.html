@@ -3,7 +3,7 @@
     <link rel="icon" href="static/favicon.ico">
     <script>
         const popup_width = 720;
-        const popup_height = 500;
+        const popup_height = 600;
         const popup_x = (window.screen.width / 2) - (popup_width / 2);
         const popup_y = (window.screen.height / 2) - (popup_height / 2);
     </script>
@@ -16,8 +16,11 @@
     overflow:scroll;
     font-family: 'Gowun Dodum', sans-serif;
     font-weight: bold;
+    font-size: 14px;
+    color: black;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+    padding-left: 30px;
     }
 
     #box::-webkit-scrollbar {
@@ -26,22 +29,19 @@
 
     body {
     background-color: black;
-    color: white;
-    padding-left: 30px;
-    font-size: 16px;
     }
 
     .form-control {
        width: 400px;
        height: 20px;
-       background-color: black;
+       background-color: white;
        border-top: none;
        border-left: none;
        border-right: none;
-       border-bottom: 1px solid white;
+       border-bottom: 1px solid black;
        margin-bottom: 12px;
        right: 0;
-       color:white;
+       color: black;
        }
 
     table {
@@ -60,21 +60,12 @@
 <div id="box">
     {% block html_body %}
     {% include 'music_detail/popup_login.html' %}
-    <div style="float: right; font-size:13px;">
-        {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'user:logout' %}?next={{ request.path }}">{{ user.username }} (out)</a>
-        <a role="button" class="" href="/music/mypage">my page</a>
-        {% else %}
-        <a class="nav-link" href="{% url 'user:login' %}?next={{ request.path }}">log in</a> or
-        <a role="button" class="" href="{% url 'user:signup' %}?next={{ request.path }}">join</a>
-        {% endif %}
-    </div>
 
 
     <div id="content" style="padding-top: 40px">
         <!------- 제목 담당 --------->
         <div id="list_title" style="">
-            <h1 style="font-style: italic; font-size:40px; margin:0px">{{ playlists.mp_name }}</h1>
+            <a href="/" style="text-decoration: none;"><h1 style="font-style: italic; font-size:30px; margin:0px; color:black; font-family: 'Gowun Dodum', sans-serif;">{{ playlists.mp_name }}</h1></a>
             {{ playlists.mp_like }}
 
 
@@ -94,7 +85,7 @@
 
 
         <!--------   노래 담당  ---------->
-        <div id="music_list" class="overflow-auto" style="height: auto; margin: 30px 30px 40px 0px; padding:20px; border:1px solid white; border-radius: 5px;">
+        <div id="music_list" class="overflow-auto" style="height: auto; margin: 30px 30px 40px 0px; padding:20px; border:1px solid black; border-radius: 5px;">
             {% for song in playlists.playlist_set.all %}
             <div>{{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
                 <button type="button" class="play"
@@ -128,7 +119,7 @@
                 {% for comment in playlists.playlistcomment_set.all %}
                 <tr>
                     <td>{{ comment.user_fk }}</td>
-                    <td>{{ comment.c_contents }}</td>
+                    <td style="margin-left: 10px;">{{ comment.c_contents }}</td>
                     {% if comment.user_fk == request.user %}
                     <td><a href="{% url 'music:delete_comment' playlists.id %}" class="btn btn-outline-danger">X</a> </td>
                     {% else %}
@@ -143,7 +134,7 @@
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     {% if user.is_authenticated %}
-                    comment:<input type="text" class="form-control" placeholder=""
+                    comment:<input type="text" class="form-control" class="form-control"
                                    aria-describedby="create_comment" name="content"
                                    style="margin-left:10px;">
                     <input type="submit" class="btn btn-outline-dark" value="" id="create_comment"

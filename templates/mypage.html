@@ -7,7 +7,7 @@
     <link rel="icon" href="static/favicon.ico">
     <script>
         const popup_width = 720;
-        const popup_height = 500;
+        const popup_height = 600;
         const popup_x = (window.screen.width / 2) - (popup_width / 2);
         const popup_y = (window.screen.height / 2) - (popup_height / 2);
     </script>
@@ -19,6 +19,8 @@
     background-color: black;
     padding-left: 30px;
     color: white;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
     }
 
     h1 {
@@ -37,6 +39,10 @@
     font-weight: bold;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
     }
 
     a {
@@ -45,6 +51,10 @@
     }
 
     #content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    }
+
+    body::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
     }
 

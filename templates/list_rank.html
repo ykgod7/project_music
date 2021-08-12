@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
+
+    /// 리스트 랭크 호출
+    $(function(event) {
+        $('[class=list_title]').on('click',function(event) {
+        var id = $(this).attr('id');
+        alert(id);
+        $.ajax({
+            url:'http://localhost:8000/music/' + id + '/playlist/',
+            type:'get',
+            dataType:'html',
+            success:function(data3) {
+                $("#content").empty();
+<!--                $("#content").css('background-color','black')-->
+                $("#content").html(data3);
+
+                },
+
+            error : function() {
+                alert('실패했어요!')
+            }
+        })
+        })
+    })
+
         function l_select(obj){
             if($(obj).val()=='l_like'){
 
@@ -60,10 +84,10 @@
      style="display:table; width: 100%; border:none; margin: 0px; height:60px; padding:0px 35px 0px 35px;
               text-align:left; font-family: 'Gowun Dodum', sans-serif;">
     <div style="display:table-cell; vertical-align:middle; margin:0px; padding-top:40px;">
-        <a style="font-weight: bold; text-decoration: none; font-size:17px; margin: 0px; display: block;" href="{% url 'music:playlist' list.id %}">
-            <div style="font-size:17px; color:black; margin: 0px; display: block;">{{ list.mp_name }} ♥{{ list.mp_like }}</div></a>
+        <!--        <a style="font-weight: bold; text-decoration: none; font-size:17px; margin: 0px; display: block;" href="{% url 'music:playlist' list.id %}">-->
+        <div class="list_title" id={{ list.id }} style="font-size:17px; color:black; margin: 0px; display: block;">{{ list.mp_name }} ♥{{ list.mp_like }}</div>
         <div style="font-size:13px; color:grey; height: 13px; margin: 0px;">{{ list.user_fk.username }} - {{ list.list_pub_date }}
-<!--        <img src="static/vinyl.png" width="14px" style="margin-left:10px;">--></div>
+            <!--        <img src="static/vinyl.png" width="14px" style="margin-left:10px;">--></div>
     </div>
 </div>
 {% endfor %}
