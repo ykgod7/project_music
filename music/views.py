@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
 from user.forms import PopupLoginForm
@@ -14,8 +15,10 @@ from . import models
 from .models import Profile, PlaylistComment, MyPlaylist, Music, Playlist, Artist
 from urllib import parse
 
+
 def index(request):
     return render(request, 'index.html')
+
 
 def mypage(request):
     user = get_user_model()
@@ -65,6 +68,7 @@ def list_rank(request):
     playlists = models.MyPlaylist.objects.all().order_by('-mp_like')
     return render(request, 'list_rank.html', {'playlists': playlists, 'select': 'l_like'})
 
+
 def music_like(request):
     like_type = request.GET.get('like_type')
     music = Music.objects.get(pk=request.GET.get('m_id'))
@@ -80,8 +84,6 @@ def music_like(request):
         music.m_like += 1
         music.save()
     return HttpResponse(json.dumps({'result': 'ture'}))
-
-
 
 
 def music_video(request, videoId, videoTitle, videoArtist):
@@ -106,6 +108,8 @@ def music_video(request, videoId, videoTitle, videoArtist):
         else:
             playlist = Playlist.objects.create(music_fk=music_key,
                                                myplaylist_fk=MyPlaylist.objects.get(pk=myplaylist_pk), user_fk=user)
+            myplaylist = get_object_or_404(MyPlaylist, pk=myplaylist_pk)
+            myplaylist.save()
         return HttpResponse(json.dumps({'data': 'success'}))
     else:
         if request.user.is_authenticated:
