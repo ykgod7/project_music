@@ -1,4 +1,9 @@
 ///top100리스트
+const popup_width = 720;
+const popup_height = 600;
+const popup_x = (window.screen.width / 2) - (popup_width / 2);
+const popup_y = (window.screen.height / 2) - (popup_height / 2);
+
 $(function(event) {
     $('[id=top100_btn]').on('click',function(event) {
     $.ajax({

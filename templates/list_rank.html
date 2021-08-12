@@ -9,15 +9,15 @@
     $(function(event) {
         $('[class=list_title]').on('click',function(event) {
         var id = $(this).attr('id');
-        alert(id);
+        //alert(id);
         $.ajax({
             url:'http://localhost:8000/music/' + id + '/playlist/',
             type:'get',
             dataType:'html',
             success:function(data3) {
-                $("#content").empty();
+                $("#list").empty();
 <!--                $("#content").css('background-color','black')-->
-                $("#content").html(data3);
+                $("#list").html(data3);
 
                 },
 

@@ -89,7 +89,7 @@
             {% for song in playlists.playlist_set.all %}
             <div>{{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
                 <button type="button" class="play"
-                        onclick="window.open('/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=500, left='+popup_x+', top='+popup_y+'')"
+                        onclick="window.open('/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=600, left='+popup_x+', top='+popup_y+'')"
                         style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></div>
 
             {% endfor %}
