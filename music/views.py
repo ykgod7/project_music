@@ -57,7 +57,7 @@ def m_list_like(request):
 
 
 def m_list_new(request):
-    playlists = models.MyPlaylist.objects.all().order_by('list_pub_date')
+    playlists = models.MyPlaylist.objects.all().order_by('-list_pub_date')
     return render(request, 'list_rank.html', {'playlists': playlists, 'select': 'l_new'})
 
 
@@ -67,11 +67,10 @@ def list_rank(request):
 
 def music_like(request):
     like_type = request.GET.get('like_type')
-    music = Music.objects.get(pk= request.GET.get('m_id'))
+    music = Music.objects.get(pk=request.GET.get('m_id'))
     user = request.user
     music_like = Profile.objects.get(user=user).music
 
-    # if Profile.objects.get(user=user).music.filter(id=music_key.pk).exists()
     if music_like.filter(id=music.id).exists():
         music_like.remove(music)
         music.m_like -= 1
@@ -80,6 +79,7 @@ def music_like(request):
         music_like.add(music)
         music.m_like += 1
         music.save()
+    return HttpResponse(json.dumps({'result': 'ture'}))
 
 
 
@@ -111,13 +111,11 @@ def music_video(request, videoId, videoTitle, videoArtist):
         if request.user.is_authenticated:
             user = User.objects.get(username=request.user)
             myplay_list = models.MyPlaylist.objects.filter(user_fk=user.pk)
-            # profile_music = Profile.objects.get(user=user).music.filter(id=music_key.id)
-            # like = True if (profile_music.exists()) else False
-            # Profile.objects.get(user=user).music.filter.
-            if Profile.objects.get(user=user).music.filter(id=music_key.pk).exists():
-                like = True
+            profile = Profile.objects.get(user=user)
+            if profile.music.filter(id=music_key.pk).exists():
+                like = 0
             else:
-                like = False
+                like = 1
             context = {
                 'play_list': myplay_list,
                 'videoId': videoId,

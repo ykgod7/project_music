@@ -1,6 +1,12 @@
 <head>
     <link rel="shortcut icon" href="static/favicon.ico">
     <link rel="icon" href="static/favicon.ico">
+    <script>
+        const popup_width = 720;
+        const popup_height = 500;
+        const popup_x = (window.screen.width / 2) - (popup_width / 2);
+        const popup_y = (window.screen.height / 2) - (popup_height / 2);
+    </script>
 </head>
 
 <style>
@@ -91,7 +97,7 @@
             {% for song in playlists.playlist_set.all %}
             <div>{{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
                 <button type="button" class="play"
-                        onclick="location.href='/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/'"
+                        onclick="window.open('/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=500, left='+popup_x+', top='+popup_y+'')"
                         style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></div>
 
             {% endfor %}

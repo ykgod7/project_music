@@ -84,21 +84,6 @@ function login() {
 };
 
 
-function like_click() {
-    $('#like_ico').click(function () {
-        like_ico = $('.fa-thumbs-up')
-        if (like_ico.attr('data-val') == 0) {
-            like_ico.attr('data-val', 1)
-            like_ico.css('color', "cornflowerblue")
-            like_ico.text('Like')
-        } else {
-            like_ico.attr('data-val', 0)
-            like_ico.css('color', "gray")
-            like_ico.text('Unlike')
-        }
-    })
-};
-
 $(function (event) {
     // Calling Login Form
     $(".footer_title").click(function () {
@@ -134,5 +119,4 @@ $(function (event) {
     addlist()
     savelist()
     login()
-    like_click()
 });
