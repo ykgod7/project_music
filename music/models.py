@@ -31,8 +31,8 @@ class Music(models.Model):
 class MyPlaylist(models.Model):
     mp_name = models.CharField(max_length=100, null=True)
     mp_like = models.IntegerField(default=0)
-    list_pub_date = models.DateTimeField(auto_now=True)
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    list_pub_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.mp_name)

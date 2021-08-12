@@ -125,7 +125,7 @@
                 <td><button class="btn btn-outline-success btn-sm"
                             onclick="window.open('/music/musicvideo/{{ select.music_fk.m_videoCd }}/{{ select.music_fk.m_title }}/{{ select.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=500, left='+popup_x+', top='+popup_y+'')"
                             style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></td>
-                <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}" class="btn btn-outline-danger btn-sm">X</a> </td>
+                <td><a href="/music/{{ select.id }}/{{ select.myplaylist_fk.id }}/?m_id={{ select.music_fk.pk }}" class="btn btn-outline-danger btn-sm">X</a> </td>
                 </tr>
                 </tbody>
                 {% endfor %}
