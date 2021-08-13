@@ -8,11 +8,32 @@
         const popup_y = (window.screen.height / 2) - (popup_height / 2);
 
         $(function(event) {
-            $('.delete_comment').on('click',function(event) {
-                var id = $(this).attr('id');
+
+            $('#like_btn1').on('click',function(event) {
+                var id = $(this).attr('data-page');
                 //alert(id);
                 $.ajax({
-                    url:'/music/delete_comment/' + id + '/',
+                    url:'/music/playlist_like_toggle/'+ id +'/',
+                    type:'get',
+                    dataType:'html',
+                    success:function(html_playlist) {
+                        //alert(html_playlist)
+                        $("#list").empty();
+                        {% comment %}$("#content").css('background-color','black'){% endcomment %}
+                        $("#list").html(html_playlist);
+
+                        },
+                    error : function() {
+                        alert('실패했어요!')
+                    }
+                })
+            }),
+
+            $('#like_btn2').on('click',function(event) {
+                var id = $(this).attr('data-page');
+                //alert(id);
+                $.ajax({
+                    url:'/music/playlist_like_toggle/'+ id +'/',
                     type:'get',
                     dataType:'html',
                     success:function(html_playlist) {
@@ -27,9 +48,8 @@
                         alert('실패했어요!')
                     }
                 })
-            })
-        })
-        $(function(event) {
+            }),
+
             $('.delete_comment').on('click',function(event) {
                 var id = $(this).attr('id');
                 //alert(id);
@@ -59,15 +79,13 @@
                     type:'POST',
                     dataType:'html',
                     success:function(html_playlist) {
-                        //alert(html_playlist)
+                        alert(html_playlist)
                         $("#list").empty();
-                        {#{% comment %}$("#content").css('background-color','black'){% endcomment %}#}
+                        {% comment %}$("#content").css('background-color','black'){% endcomment %}
                         $("#list").html(html_playlist);
-
-                        },
-
+                    },
                     error : function() {
-                        alert('실패했어요!')
+                        alert('실패했어요! 댓글 등록')
                     }
                 })
             })
@@ -136,11 +154,11 @@
 
             {% if user.is_authenticated %}
             {% if p_liked %}
-            <a id="like_btn1" href="{% url 'music:playlist_like_toggle' playlists.id %}" role="button"
-               class="btn btn-outline-primary"><img src="/static/heart-b.png" width="20px"></a>
+            <a id="like_btn1" data-page={{ playlists.id }} role="button"
+               class="btn btn-outline-primary like_btn1"><img src="/static/heart-b.png" width="20px"></a>
             {% else %}
-            <a id="like_btn2" href="{% url 'music:playlist_like_toggle' playlists.id %}" role="button"
-               class="btn btn-outline-primary"><img src="/static/heart.png" width="20px"></a>
+            <a id="like_btn2" data-page={{ playlists.id }} role="button"
+               class="btn btn-outline-primary like_btn2"><img src="/static/heart.png" width="20px"></a>
             {% endif %}
             {% else %}
             {% comment %}로그인 유도{% endcomment %}
