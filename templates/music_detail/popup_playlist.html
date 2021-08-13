@@ -1,47 +1,40 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
-    .popupContainer{
-    font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
-    color: white;
-    background-color: black;
+    .popupContainer {
+        font-family: 'Gowun Dodum', sans-serif;
+        font-weight: bold;
+        color: white;
+        background-color: black;
     }
 
-       #new_playlist {
-       width: 285px;
-       height: 20px;
-       background-color: black;
-       border-top: none;
-       border-left: none;
-       border-right: none;
-       border-bottom: 1px solid white;
-       margin-bottom: 6px;
-       color:white;
-       }
+    #new_playlist {
+        width: 285px;
+        height: 20px;
+        background-color: black;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid white;
+        margin-bottom: 6px;
+        color: white;
+    }
 
-       .add { background-color: blue;}
+    .add {
+        background-color: blue;
+    }
 
 </style>
 
-<script>
-    $(document).ready(function() {
-    $("input:checkbox").on('click', function() {
-    add_ico = $('#add_btn')
-    if ( $(this).prop('checked') ) {
-    add_ico.attr('src', "/static/add2.png");}
-    else { add_ico.attr('src', "/static/add.png") } }); });
-
-
-
-
-</script>
 
 <div id="show_playlist" class="popupContainer" style="display:none;">
     <header class="popupHeader">
         <span class="header_title">playlist</span>
-        <span class="modal_close"><img src="/static/delete.png" width="13px" class="bi bi-x-lg"></span>
-        <span class="modal_add" id="modal_addd" style="padding-right:50px;"><img src="/static/add.png" id="add_btn" width="16px" class="bi bi-plus-lg"></span>
+        <div class="modal_close"><img src="/static/delete.png" style="padding-bottom: 1px" width="13px"
+                                      class="bi bi-x-lg"></div>
+        <div class="modal_add" id="modal_addd" style="margin-right: 30px; "><img src="/static/add.png" id="add_btn"
+                                                                                 width="16px" class="bi bi-plus-lg">
+        </div>
 
         {% comment %}<span class="modal_del"><img src="/static/delete.png" width="13px" class="bi bi-dash-lg"></span>{% endcomment %}
     </header>
@@ -49,18 +42,19 @@
     <section class="popupBody">
         <div id="playlist">
             {% for pl in play_list %}
-            <p>
-                <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
-                       value='{{ pl.pk }}' style="zoom:2.0"/>
-                <label for='check_list{{ forloop.counter }}'
-                       style="top: -3px; position: relative; font-size: 17pt">{{ pl.mp_name }}</label>
-            </p>
+                <p>
+                    <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
+                           value='{{ pl.pk }}' style="zoom:2.0"/>
+                    <label for='check_list{{ forloop.counter }}'
+                           style="top: -3px; position: relative; font-size: 17pt">{{ pl.mp_name }}</label>
+                </p>
             {% endfor %}
         </div>
     </section>
 
     <footer class="popupFooter">
-        <span class="footer_title" style="cursor: pointer"><i class="bi bi-plus-lg" id="pl_add"> new play list</i></span>
+        <span class="footer_title" style="cursor: pointer"><i class="bi bi-plus-lg"
+                                                              id="pl_add"> new play list</i></span>
         <div class="hidden_playlist" style="display: none">
             <form>
                 <label>title:</label>

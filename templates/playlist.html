@@ -190,7 +190,7 @@
             <div>{{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
                 <button type="button" class="play"
                         onclick="window.open('/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=600, left='+popup_x+', top='+popup_y+'')"
-                        style="background-color:white; border:none;"><img src="/static/play2.png" width="13px"></button></div>
+                        style="background-color:white; border:none;"><img src="/static/play2.png" width="11px"></button></div>
 
             {% endfor %}
         </div>

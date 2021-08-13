@@ -87,11 +87,10 @@ function login() {
 $(function (event) {
     // Calling Login Form
     $(".footer_title").click(function () {
-        if($(".hidden_playlist").css('display') == 'none'){
+        if ($(".hidden_playlist").css('display') == 'none') {
             $("#pl_add").removeClass('bi bi-plus-lg').addClass('bi bi-dash-lg')
             $(".hidden_playlist").show();
-        }
-        else{
+        } else {
             $(".hidden_playlist").hide();
             $("#new_playlist").val('')
             $("#pl_add").removeClass('bi bi-dash-lg').addClass('bi bi-plus-lg')
@@ -105,6 +104,7 @@ $(function (event) {
             if ($(this).prop('checked')) {
                 $('input[type="checkbox"][name="check_list"]').prop('checked', false);
                 $(this).prop('checked', true);
+                $('#add_btn').attr('src', "/static/add2.png");
             }
         })
     });
