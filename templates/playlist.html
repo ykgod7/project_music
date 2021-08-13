@@ -8,11 +8,32 @@
         const popup_y = (window.screen.height / 2) - (popup_height / 2);
 
         $(function(event) {
-            $('.delete_comment').on('click',function(event) {
-                var id = $(this).attr('id');
+
+            $('#like_btn1').on('click',function(event) {
+                var id = $(this).attr('data-page');
                 //alert(id);
                 $.ajax({
-                    url:'/music/delete_comment/' + id + '/',
+                    url:'/music/playlist_like_toggle/'+ id +'/',
+                    type:'get',
+                    dataType:'html',
+                    success:function(html_playlist) {
+                        //alert(html_playlist)
+                        $("#list").empty();
+                        {% comment %}$("#content").css('background-color','black'){% endcomment %}
+                        $("#list").html(html_playlist);
+
+                        },
+                    error : function() {
+                        alert('실패했어요!')
+                    }
+                })
+            }),
+
+            $('#like_btn2').on('click',function(event) {
+                var id = $(this).attr('data-page');
+                //alert(id);
+                $.ajax({
+                    url:'/music/playlist_like_toggle/'+ id +'/',
                     type:'get',
                     dataType:'html',
                     success:function(html_playlist) {
@@ -27,9 +48,8 @@
                         alert('실패했어요!')
                     }
                 })
-            })
-        })
-        $(function(event) {
+            }),
+
             $('.delete_comment').on('click',function(event) {
                 var id = $(this).attr('id');
                 //alert(id);
@@ -59,15 +79,13 @@
                     type:'POST',
                     dataType:'html',
                     success:function(html_playlist) {
-                        //alert(html_playlist)
+                        alert(html_playlist)
                         $("#list").empty();
-                        {#{% comment %}$("#content").css('background-color','black'){% endcomment %}#}
+                        {% comment %}$("#content").css('background-color','black'){% endcomment %}
                         $("#list").html(html_playlist);
-
-                        },
-
+                    },
                     error : function() {
-                        alert('실패했어요!')
+                        alert('실패했어요! 댓글 등록')
                     }
                 })
             })
@@ -97,14 +115,14 @@
     background-color: black;
     }
 
-    .form-control {
-       width: 400px;
+    #comment_form {
+       width: 300;
        height: 20px;
        background-color: white;
        border-top: none;
        border-left: none;
        border-right: none;
-       border-bottom: 1px solid black;
+       border-bottom: 1px solid grey;
        margin-bottom: 12px;
        right: 0;
        color: black;
@@ -119,6 +137,24 @@
     a {
     text-decoration: none;
     color: inherit;
+    }
+
+    .btn-outline-dark {
+    background-color:white;
+    color:black;
+    font-size: 14px;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-weight: bold;
+    border-radius: 2px;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 3px 3px 0px 0px #5D5D5D;
+    }
+
+    .btn-outline-dark:active{
+    box-shadow: none;
+    margin-left: 5px;
+    margin-top: 5px;
     }
 
 
@@ -136,11 +172,11 @@
 
             {% if user.is_authenticated %}
             {% if p_liked %}
-            <a id="like_btn1" href="{% url 'music:playlist_like_toggle' playlists.id %}" role="button"
-               class="btn btn-outline-primary"><img src="/static/heart-b.png" width="20px"></a>
+            <a id="like_btn1" data-page={{ playlists.id }} role="button"
+               class="btn btn-outline-primary like_btn1"><img src="/static/heart-b2.png" width="20px"></a>
             {% else %}
-            <a id="like_btn2" href="{% url 'music:playlist_like_toggle' playlists.id %}" role="button"
-               class="btn btn-outline-primary"><img src="/static/heart.png" width="20px"></a>
+            <a id="like_btn2" data-page={{ playlists.id }} role="button"
+               class="btn btn-outline-primary like_btn2"><img src="/static/heart2.png" width="20px"></a>
             {% endif %}
             {% else %}
             {% comment %}로그인 유도{% endcomment %}
@@ -155,7 +191,7 @@
             <div>{{ forloop.counter }}. {{ song.music_fk.artist_fk.a_name }} : {{ song.music_fk.m_title }}
                 <button type="button" class="play"
                         onclick="window.open('/music/musicvideo/{{ song.music_fk.m_videoCd }}/{{ song.music_fk.m_title }}/{{ song.music_fk.artist_fk }}/', 'video_popup', 'width=720, height=600, left='+popup_x+', top='+popup_y+'')"
-                        style="background-color:black; border:none;"><img src="/static/play.png" width="13px"></button></div>
+                        style="background-color:white; border:none;"><img src="/static/play2.png" width="13px"></button></div>
 
             {% endfor %}
         </div>
@@ -186,7 +222,7 @@
                     <td>{{ comment.user_fk }}</td>
                     <td style="margin-left: 10px;">{{ comment.c_contents }}</td>
                     {% if comment.user_fk == request.user %}
-                    <td><a class="btn btn-outline-danger delete_comment" id={{ playlists.id }}>X</a> </td>
+                    <td><a class="btn btn-outline-danger delete_comment" style="color: #BDBDBD;" id={{ playlists.id }}>X</a> </td>
                     {% else %}
                     <td></td>
                     {% endif %}
@@ -199,15 +235,14 @@
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     {% if user.is_authenticated %}
-                    comment:<input type="text" class="form-control" placeholder=""
+                    comment:<input type="text" class="form-control" id="comment_form"
                                    aria-describedby="create_comment" name="content"
                                    style="margin-left:10px;">
                     <input type="submit" class="btn btn-outline-dark create_comment" id={{ playlists.id }}
-                           style="background-image: url(static/down.png) no-repeat 95% 50%; width:13px; height:13px;
-                            background-repeat: no-repeat; background-color:black; border:none; margin-top:30px;">
+                           style="margin-top:30px;">
                     {% else %}
                     <a class="form-control" id="modal_trigger" href="#popup_login"
-                       style="display:block;height:46px;padding:4px 8px;border:1px solid #DDD;box-shadow:inset 1px 1px 4px rgba(0,0,0,.06);background:#FFF;text-decoration:none !important;color:#999 !important">로그인후 열람 가능합니다.</a>
+                       style="display:block;height:46px;width:200px;padding:4px 8px; margin-top:10px; background:#FFF;text-decoration:none !important;color:#999 !important">please log in for comment</a>
                     {% endif %}
                 </div>
             </form>

@@ -9,29 +9,29 @@
     <script type="text/javascript" src="{% static 'js/video_leanmodal.js' %}"></script>
 
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
 
-    body {
-    overflow:scroll;
-    font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    background-color: black;
-    color: white;
-    padding: 30px 0px 30px 30px;
-    }
+        body {
+            overflow: scroll;
+            font-family: 'Gowun Dodum', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            background-color: black;
+            color: white;
+            padding: 30px 0px 30px 30px;
+        }
 
-    body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-    }
+        body::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
 
-    a {
-    text-decoration: none;
-    color: white;
-    }
+        a {
+            text-decoration: none;
+            color: white;
+        }
 
 
     </style>
@@ -44,7 +44,7 @@
 
     <div style="margin-bottom: 20px; font-size:33px;">
         <label>{{ videoTitle }}</label>
-        <label style="font-size:20px; color:grey;">{{ videoArtist }} ♥{{ like }}</label>
+        <label style="font-size:20px; color:grey;">{{ videoArtist }} ♥</label><label id="like-cnt" data-cnt='{{ like_cnt }}' style="font-size:20px; color:grey;">{{ like_cnt }}</label>
     </div>
 
     <div id="player" style="margin-bottom:10px;"></div>
@@ -53,21 +53,28 @@
             {% if request.user.is_authenticated %}
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#show_playlist'><i
-                        class="fa fa-list">Playlist</i></a></button>
+                        class="fa fa-list" style="color:black;">Playlist</i></a></button>
             {% else %}
                 {% comment %}로그인 하도록 유도{% endcomment %}
                 <button class="btn" id="playlist_ico" style="color:cornflowerblue;"><a id="modal_trigger"
                                                                                        href='#popup_login'><i
-                        class="fa fa-list">Playlist</i></a></button>
+                        class="fa fa-list" style="color:black; margin-right: 20px;">Playlist</i></a></button>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                {% if like == 0 %}
+                    <a class="btn" id="like_ico" data-val=1>♥</a>
+{#                    <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1#}
+{#                                                         style="color: black; margin-right:10px;">♡</i></button>#}
+                {% else %}
+                    <a class="btn" id="like_ico" data-val=0>♡</a>
+{#                    <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0 style="color: black; ">♥</i>#}
+{#                    </button>#}
+                {% endif %}
+
+            {% else %}
+                <a id="modal_trigger2" class="btn" href="#popup_login" style="float: right">♡</a>
             {% endif %}
 
-            {% if like == 0 %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=1 style="color: black; margin-right:10px;">♡</i>
-                </button>
-            {% else %}
-                <button class="btn" id="like_ico"><i class="fa fa-thumbs-up" data-val=0 style="color: black; ">♥</i>
-                </button>
-            {% endif %}
         </div>
 
         {% include 'music_detail/popup_login.html' %}
@@ -81,16 +88,22 @@
     <script>
         $(function (event) {
             $('#like_ico').click(function () {
-                like_ico = $('.fa-thumbs-up')
-                if (like_ico.attr('data-val') == 0) {
-                    like_ico.attr('data-val', 1)
-                    like_ico.text('♥')
+                {#like_ico = $('.fa-thumbs-up')#}
+                if ($(this).attr('data-val') == 0) {
+                    $(this).attr('data-val', 1)
+                    $(this).text('♥')
+                    var cnt = $('#like-cnt').data('cnt')
+                    $('#like-cnt').text(cnt+1)
+                    $('#like-cnt').data('cnt', cnt+1)
                 } else {
-                    like_ico.attr('data-val', 0)
-                    like_ico.text('♡')
+                    $(this).attr('data-val', 0)
+                    $(this).text('♡')
+                    var cnt = $('#like-cnt').data('cnt')
+                    $('#like-cnt').text(cnt-1)
+                    $('#like-cnt').data('cnt', cnt-1)
                 }
                 $.get('/music/music_like/',
-                    {like_type: like_ico.attr('data-val'), m_id: {{m_id}}})
+                    {like_type: $(this).attr('data-val'), m_id: {{m_id}}})
             })
         })
     </script>
@@ -135,3 +148,8 @@
 </script>
 </body>
 </html>
+
+
+
+
+

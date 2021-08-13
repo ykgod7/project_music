@@ -45,10 +45,10 @@ $(function(event) {
                             data:{part:'id',key:apikey,q:q_keyword, maxResults:1, type:'video',videoEmbeddable:'true'},
                             success:function (datalist){
                                 varId = datalist.items[0].id.videoId;
-                                console.log(varId);
+                                //console.log(varId);
                                 //console.log('순서 확인용 (안)'+varId)
                                 albumTitleToEncoding = albumTitle.replace(/ /g, '%20').replace(/'/g, '').replace(/#/g, '');    /* js에 넘길 때 data 속성 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
-                                console.log(albumTitleToEncoding);
+                                //console.log(albumTitleToEncoding);
                                 albumArtistToEncoding = albumArtist.replace(/ /g, '%20');
                                 //console.log(albumArtistToEncoding)
                                 var html = '';
@@ -67,7 +67,7 @@ $(function(event) {
                                 //albumTitle = 'Kill This Love'
                                 //albumArtist = 'Black Pink'
                                 albumTitleToEncoding = albumTitle.replace(/ /g, '%20').replace(/'/g, '').replace(/#/g, '');    /* js에 넘길 때 data 속성 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
-                                console.log(albumTitleToEncoding);
+                                //console.log(albumTitleToEncoding);
                                 albumArtistToEncoding = albumArtist.replace(/ /g, '%20');
                                 //console.log(albumArtistToEncoding)
                                 var html = '';
