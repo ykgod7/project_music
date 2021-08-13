@@ -194,7 +194,7 @@ def playlist_like_toggle(request, playlist_id):
 
 @login_required
 def create_comment(request, playlist_id):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.is_ajax:
         comment = request.POST.get('content')
         playlist = get_object_or_404(models.MyPlaylist, pk=playlist_id)
         user_comment = playlist.playlistcomment_set.filter(user_fk=request.user)
@@ -217,3 +217,5 @@ def delete_comment(request, playlist_id):
     user_comment = playlist.playlistcomment_set.filter(user_fk=request.user)
     user_comment.delete()
     return redirect('music:playlist', playlist_id)
+
+
