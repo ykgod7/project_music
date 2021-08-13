@@ -51,15 +51,14 @@
                 })
             }),
 
-            $('#create_comment').submit(function (event){
+            $('#create_comment').submit(function (){
                 var id = $('.create_comment').attr('id');
                 $.ajax({
                     data: $(this).serialize(),
-                    url: '/music/create_comment/' + id + '/',
+                    url: $(this).attr('action'),
                     type:'POST',
                     dataType:'html',
                     success:function(html_playlist) {
-                        //alert(html_playlist)
                         $("#list").empty();
                         {#{% comment %}$("#content").css('background-color','black'){% endcomment %}#}
                         $("#list").html(html_playlist);
@@ -70,6 +69,7 @@
                         alert('실패했어요!')
                     }
                 })
+                return false
             })
         })
     </script>
@@ -195,7 +195,7 @@
                 </tbody>
             </table>
 
-            <form formurl="{% url 'music:create_comment' playlists.id %}" id="create_comment" method="post">
+            <form action="{% url 'music:create_comment' playlists.id %}" id="create_comment" method="post">
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     {% if user.is_authenticated %}
