@@ -20,13 +20,28 @@
        color:white;
        }
 
+       .add { background-color: blue;}
+
 </style>
+
+<script>
+    $(document).ready(function() {
+    $("input:checkbox").on('click', function() {
+    add_ico = $('#add_btn')
+    if ( $(this).prop('checked') ) {
+    add_ico.attr('src', "/static/add2.png");}
+    else { add_ico.attr('src', "/static/add.png") } }); });
+
+
+
+
+</script>
 
 <div id="show_playlist" class="popupContainer" style="display:none;">
     <header class="popupHeader">
         <span class="header_title">playlist</span>
         <span class="modal_close"><img src="/static/delete.png" width="13px" class="bi bi-x-lg"></span>
-        <span class="modal_add" id="modal_addd" style="padding-right:50px;"><img src="/static/add.png" width="16px" class="bi bi-plus-lg"></span>
+        <span class="modal_add" id="modal_addd" style="padding-right:50px;"><img src="/static/add.png" id="add_btn" width="16px" class="bi bi-plus-lg"></span>
 
         {% comment %}<span class="modal_del"><img src="/static/delete.png" width="13px" class="bi bi-dash-lg"></span>{% endcomment %}
     </header>
@@ -38,7 +53,7 @@
                 <input type='checkbox' id='check_list{{ forloop.counter }}' name='check_list'
                        value='{{ pl.pk }}' style="zoom:2.0"/>
                 <label for='check_list{{ forloop.counter }}'
-                       style="top: -3px; position: relative; font-size: 20pt">{{ pl.mp_name }}</label>
+                       style="top: -3px; position: relative; font-size: 17pt">{{ pl.mp_name }}</label>
             </p>
             {% endfor %}
         </div>

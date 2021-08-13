@@ -27,10 +27,10 @@ $(function(event) {
                     //console.log(albumTitle, albumArtist)
                     /////// 썸네일 동영상 ID값을 가져오기 위한 ajax 추가 영역
 
-                    //let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
+                    let apikey = "AIzaSyB1nDzwhecsIlKfq3LmBHxRoO6x6yVn7iQ";   //이문열
                     //let apikey = "AIzaSyCfuyiH7W-NJQTVdOjt8UC9SYoUZJegnOk";   //장경진
                     //let apikey = "AIzaSyCXqe22SwyypvUQojB9UIjONWPqfwyWNs8"  //황지현
-                    let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
+                    //let apikey = "AIzaSyBh6AzV_s_uLAXesssb6A67G6-nj4XKRaY"  //황지현 신규 키
                     let q_keyword = albumTitle + ' ' + albumArtist + ' official'
                     console.log(q_keyword);
                     const popup_width = 720;
@@ -45,34 +45,37 @@ $(function(event) {
                             data:{part:'id',key:apikey,q:q_keyword, maxResults:1, type:'video',videoEmbeddable:'true'},
                             success:function (datalist){
                                 varId = datalist.items[0].id.videoId;
-                                //console.log(videoId);
+                                //console.log(varId);
                                 //console.log('순서 확인용 (안)'+varId)
-                                albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* 속성에 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
-                                //alert(albumTitleToEncoding)
+                                albumTitleToEncoding = albumTitle.replace(/ /g, '%20').replace(/'/g, '').replace(/#/g, '');    /* js에 넘길 때 data 속성 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
+                                //console.log(albumTitleToEncoding);
+                                albumArtistToEncoding = albumArtist.replace(/ /g, '%20');
+                                //console.log(albumArtistToEncoding)
                                 var html = '';
                                 html += '<div class="container" style="text-align:center; height:300px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:40px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
+                                    '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtistToEncoding+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
 //                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
                                     albumArtist + ' : ' + albumTitle +
                                     '</button></div></div>'
                                 $("#list").append(html);
                             },
                             error : function(err) {
-                                console.log(err)
-                                console.log('샘플 videoId=BlackPink:Kill This Love')
+                                console.log(err);
+                                console.log('샘플 videoId=BlackPink:Kill This Love');
                                 //albumTitle = 'Kill This Love'
                                 //albumArtist = 'Black Pink'
-                                albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* js에 넘길 때 data 속성 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
-                                albumArtistToEncoding = albumArtist.replace(/ /g, '%20')
-                                //alert(albumTitleToEncoding)
+                                albumTitleToEncoding = albumTitle.replace(/ /g, '%20').replace(/'/g, '').replace(/#/g, '');    /* js에 넘길 때 data 속성 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
+                                //console.log(albumTitleToEncoding);
+                                albumArtistToEncoding = albumArtist.replace(/ /g, '%20');
+                                //console.log(albumArtistToEncoding)
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
                                 html += '<div class="container" style="text-align:center; height:300px; margin-bottom:20px;">' +
                                     '<div class="container" style="display:inline-block; text-align:center; margin-top:40px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
-                                    '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
+                                    '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtistToEncoding+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
 //                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'/\'">'+  // ajax 문제 onclick으로 해결한 코드
                                     //'<button type="button" class="result_btn" data-videoCd='+varId+' data-videoTitle='+albumTitleToEncoding+' data-videoArtist='+albumArtist+'>' +  // v_button 자바스크립트 이용 : ajax로 인한 개별 지정 문제
                                     albumArtist + ' : ' + albumTitle +

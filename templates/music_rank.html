@@ -7,9 +7,14 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="static/css/style.css">
     <script>
-                function f_select(obj){
-            if($(obj).val()=='f_like'){
+        const popup_width = 720;
+        const popup_height = 600;
+        const popup_x = (window.screen.width / 2) - (popup_width / 2);
+        const popup_y = (window.screen.height / 2) - (popup_height / 2);
 
+        function f_select(obj){
+
+            if($(obj).val()=='f_like'){
                 $.ajax({
                 url:'/music/music_rank/f_like/',
                 type:'get',
@@ -23,7 +28,6 @@
                 }
                 })
             }
-
 
             else if($(obj).val()=='f_title'){
                 $.ajax({
@@ -39,8 +43,6 @@
                 }
                 })
             }
-
-
         }
 
     </script>
@@ -97,7 +99,7 @@
     </select>
 </div>
 
-<div id="rank_list" style="padding:15px 0px 0px 35px;">
+<div id="rank_list" style="padding:15px 30px 0px 35px;">
 
     <div>
         <table class="table">
@@ -113,7 +115,7 @@
             {% for music in info_music %}
             <tr>
                 <td class="rank" style="color: #BDBDBD; font-size: 8;">{{ forloop.counter }}</td>
-                <td style="font-size: 17px; color: black;">{{ music.m_title }}</td>
+                <td style="font-size: 17px; color: black;"><a onclick="window.open('/music/musicvideo/{{ music.m_videoCd }}/{{ music.m_title }}/{{ music.artist_fk }}/', 'video_popup', 'width=720, height=600, left='+popup_x+', top='+popup_y+'')">{{ music.m_title }}</a></td>
                 <td style="color:#BDBDBD; font-size: 8;">♥{{ music.m_like }}</td>
             </tr>
             {% endfor %}
