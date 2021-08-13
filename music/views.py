@@ -135,15 +135,16 @@ def music_video(request, videoId, videoTitle, videoArtist):
                 'videoArtist': v_Artist,
                 'like': like,
                 'm_id': music_key.pk,
-                'm_pk': music_key.id
+                'like_cnt': music_key.m_like
             }
         else:
             context = {'videoId': videoId,
                        'videoTitle': v_Title,
                        'videoArtist': v_Artist,
                        'form': PopupLoginForm(),
-                       'like': False,
-                       'm_id': music_key.pk
+                       'like': 0,
+                       'm_id': music_key.pk,
+                       'like_cnt': music_key.m_like
                        }
         return render(request, 'music_detail/video.html', context)
 
