@@ -11,7 +11,7 @@
         var id = $(this).attr('id');
         //alert(id);
         $.ajax({
-            url:'http://localhost:8000/music/' + id + '/playlist/',
+            url:'/music/' + id + '/playlist/',
             type:'get',
             dataType:'html',
             success:function(data3) {

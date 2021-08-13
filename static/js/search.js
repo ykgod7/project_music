@@ -50,8 +50,8 @@ $(function(event) {
                                 albumTitleToEncoding = albumTitle.replace(/ /g, '%20')    /* 속성에 띄어쓰기 인식이 안 돼서 직접 encoding 시킨 후 보냄 */
                                 //alert(albumTitleToEncoding)
                                 var html = '';
-                                html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
+                                html += '<div class="container" style="text-align:center; height:300px; margin-bottom:20px;">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:40px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
                                     '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
 //                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitleToEncoding+'/'+albumArtist+'/\'">'+
@@ -69,8 +69,8 @@ $(function(event) {
                                 //alert(albumTitleToEncoding)
                                 var html = '';
                                 var varId = '2S24-y0Ij3Y';
-                                html += '<div class="container" style="text-align:center; height:260px; margin-bottom:20px;">' +
-                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:10px; margin-bottom:10px;">' +
+                                html += '<div class="container" style="text-align:center; height:300px; margin-bottom:20px;">' +
+                                    '<div class="container" style="display:inline-block; text-align:center; margin-top:40px; margin-bottom:10px;">' +
                                     '<iframe style="margin-bottom:10px;" width="320" height="180" src="https://img.youtube.com/vi/'+varId+'/mqdefault.jpg"></iframe><br>' +
                                     '<button type="button" class="result_btn" onclick="window.open(\'music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'\', \'a\', \'width=720, height=600, left='+popup_x+', top='+popup_y+'\')">'+
 //                                    '<button type="button" class="result_btn" onclick="location.href=\'/music/musicvideo/'+varId+'/'+albumTitle+'/'+albumArtist+'/\'">'+  // ajax 문제 onclick으로 해결한 코드

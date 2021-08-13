@@ -7,7 +7,7 @@ const popup_y = (window.screen.height / 2) - (popup_height / 2);
 $(function(event) {
     $('[id=top100_btn]').on('click',function(event) {
     $.ajax({
-        url:'/music/music_rank/f_like',
+        url:'/music/music_rank/f_like/',
         type:'get',
         dataType:'html',
         success:function(data) {
